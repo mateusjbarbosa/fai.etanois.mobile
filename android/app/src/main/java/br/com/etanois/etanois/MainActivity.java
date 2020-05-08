@@ -1,4 +1,4 @@
-package br.com.etanois.etanois;
+package br.com.etanois;
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity;
