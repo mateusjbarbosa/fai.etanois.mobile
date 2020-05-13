@@ -30,10 +30,20 @@ mixin _$UserController on _UserControllerBase, Store {
       ActionController(name: '_UserControllerBase');
 
   @override
-  dynamic setUser(User u) {
+  void setUser(User u) {
     final _$actionInfo = _$_UserControllerBaseActionController.startAction();
     try {
       return super.setUser(u);
+    } finally {
+      _$_UserControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setToken(String t) {
+    final _$actionInfo = _$_UserControllerBaseActionController.startAction();
+    try {
+      return super.setToken(t);
     } finally {
       _$_UserControllerBaseActionController.endAction(_$actionInfo);
     }

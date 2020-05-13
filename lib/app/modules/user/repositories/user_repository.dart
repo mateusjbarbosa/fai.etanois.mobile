@@ -10,6 +10,7 @@ import 'package:etanois/app/modules/user/interfaces/user_interface.dart';
 class UserRepository implements IUser {
   final CustomDio _dio;
   final String _userRequests = '/user';
+  final String _authRequests = '/auth/token';
 
   UserRepository(this._dio);
 
@@ -25,17 +26,42 @@ class UserRepository implements IUser {
   }
 
   @override
-  Future deleteUser(int id) {
-    return null;
-  }
+  Future<Either<dynamic, User>> readUser(int id, String token) async {
+    try {
+      Response _response = await _dio.client.get(
+        '$_userRequests/$id',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
 
-  @override
-  Future readUser(int id) {
-    return null;
+      return Right(User.fromJson(_response.data['payload']));
+    } on DioError catch (e) {
+      return Left(e.response.data);
+    }
   }
 
   @override
   Future updateUser(User user) {
     return null;
+  }
+
+  @override
+  Future deleteUser(int id) {
+    return null;
+  }
+
+  @override
+  Future<Either<dynamic, String>> generateUserToken({String email, String phoneNumber, String password}) async {
+    try {
+      Response _response = await _dio.client
+          .post('$_authRequests', data: {'email': email, 'phone_number': phoneNumber, 'password': password});
+
+      return Right(_response.data['token']);
+    } on DioError catch (e) {
+      return Left(e.response.data);
+    }
   }
 }

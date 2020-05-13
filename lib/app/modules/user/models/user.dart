@@ -6,6 +6,7 @@ class User {
   String paymentMode;
   String cep;
   String role;
+  String token;
 
   User({this.id, this.name, this.email, this.password, this.paymentMode, this.cep, this.role});
 

@@ -8,4 +8,9 @@ class Errors {
     code = json['code'];
     errors = json['menssage'];
   }
+
+  @override
+  String toString() {
+    return 'code: $code, errors: $errors';
+  }
 }
