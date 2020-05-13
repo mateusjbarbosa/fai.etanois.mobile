@@ -12,6 +12,9 @@ class User {
 
   int etacoins;
 
+  String role;
+  String activate;
+
   String password;
   String token;
 

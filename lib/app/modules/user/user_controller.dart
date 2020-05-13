@@ -45,6 +45,26 @@ abstract class _UserControllerBase with Store {
     return errors;
   }
 
+  Future<Errors> updateUser() async {
+    Errors errors = Errors();
+
+    Either<dynamic, User> response = await _repository.updateUser(user);
+
+    response.fold((err) => errors = Errors.fromJson(err), (u) => setUser(u));
+
+    return errors;
+  }
+
+  Future<Errors> deleteUser() async {
+    Errors errors = Errors();
+
+    Either<dynamic, User> response = await _repository.deleteUser(user.id, user.token);
+
+    response.fold((err) => errors = Errors.fromJson(err), (u) => user = u);
+
+    return errors;
+  }
+
   Future<Errors> generateUserToken(String password) async {
     Errors errors = Errors();
 
