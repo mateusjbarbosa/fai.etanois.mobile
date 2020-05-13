@@ -6,7 +6,7 @@ class Errors {
 
   Errors.fromJson(Map<String, dynamic> json) {
     code = json['code'];
-    errors = json['menssage'];
+    errors = json['msg'];
   }
 
   @override

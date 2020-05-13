@@ -1,39 +1,60 @@
 class User {
   int id;
   String name;
+  String username;
   String email;
-  String password;
-  String paymentMode;
+
   String cep;
-  String role;
+  String paymentMode;
+  int searchDistanceWithRoute;
+  int searchDistanceWithoutRoute;
+  List<String> userPreferenceFuels;
+
+  int etacoins;
+
+  String password;
   String token;
 
-  User({this.id, this.name, this.email, this.password, this.paymentMode, this.cep, this.role});
+  User({
+    this.id,
+    this.name,
+    this.username,
+    this.email,
+    this.cep,
+    this.paymentMode,
+    this.searchDistanceWithRoute,
+    this.searchDistanceWithoutRoute,
+    this.userPreferenceFuels,
+    this.etacoins,
+  });
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
+    username = json['username'];
     email = json['email'];
-    password = json['password'];
-    paymentMode = json['payment_mode'];
     cep = json['cep'];
-    role = json['role'];
+    paymentMode = json['payment_mode'];
+    searchDistanceWithRoute = json['search_distance_with_route'];
+    searchDistanceWithoutRoute = json['search_distance_without_route'];
+    userPreferenceFuels = json['user_preference_fuels'].cast<String>();
+    etacoins = json['etacoins'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
 
+    data['id'] = this.id;
     data['name'] = this.name;
+    data['username'] = this.username;
     data['email'] = this.email;
-    data['password'] = this.password;
-    data['payment_mode'] = this.paymentMode;
     data['cep'] = this.cep;
+    data['payment_mode'] = this.paymentMode;
+    data['search_distance_with_route'] = this.searchDistanceWithRoute;
+    data['search_distance_without_route'] = this.searchDistanceWithoutRoute;
+    data['user_preference_fuels'] = this.userPreferenceFuels;
+    data['etacoins'] = this.etacoins;
 
     return data;
-  }
-
-  @override
-  String toString() {
-    return 'name: $name, email: $email, pass: $password, payment: $paymentMode, cep: $cep';
   }
 }
