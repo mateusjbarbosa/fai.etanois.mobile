@@ -1,5 +1,0 @@
-lib/app/shared/user/user_module/user_module_module.dart
-lib/app/shared/user/user_module/user_module_page.dart
-test/app/shared/user/user_module/user_module_page_test.dart
-lib/app/shared/user/user_module/user_module_controller.dart
-test/app/shared/user/user_module/user_module_controller_test.dart

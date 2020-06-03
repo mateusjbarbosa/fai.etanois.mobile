@@ -1,3 +1,16 @@
-# Etanóis
+# etanois
 
-Motor de busca e compra de combustível a partir da localização do usuário.
+Aplicação mobile para o Etanóis, um motor de busca por postos de combustível pela localização do usuário
+
+## Getting Started
+
+This project is a starting point for a Flutter application.
+
+A few resources to get you started if this is your first Flutter project:
+
+- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+
+For help getting started with Flutter, view our
+[online documentation](https://flutter.dev/docs), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
