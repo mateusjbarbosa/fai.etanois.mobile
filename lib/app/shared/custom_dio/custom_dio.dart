@@ -9,7 +9,7 @@ class CustomDio {
 
   CustomDio(this.client) {
     client.options.baseUrl = API_URL_BASE;
-    client.options.connectTimeout = 5000;
+    client.options.connectTimeout = 10000;
 
     client.interceptors.add(CustomInterceptors());
   }

@@ -1,77 +1,76 @@
-import 'package:mobx/mobx.dart';
-
 import 'package:dartz/dartz.dart';
 
-import 'package:etanois/app/modules/user/models/user.dart';
+import 'package:etanois/app/modules/user/model/user_model.dart';
 
-import 'package:etanois/app/modules/user/repositories/user_repository.dart';
+import 'package:etanois/app/modules/user/repository/user_repository.dart';
 
-import 'package:etanois/app/shared/utils/errors.dart';
+import 'package:etanois/app/shared/utils/error.dart';
 
-part 'user_controller.g.dart';
-
-class UserController = _UserControllerBase with _$UserController;
-
-abstract class _UserControllerBase with Store {
+class UserController {
   final UserRepository _repository;
 
-  _UserControllerBase(this._repository);
+  UserController(this._repository);
 
-  @observable
-  User user = User();
+  UserModel _user = UserModel();
 
-  @action
-  void setUser(User u) => user = u;
+  UserModel get user {
+    return _user;
+  }
 
-  @action
-  void setToken(String t) => user.token = t;
+  Future<Error> createUser(UserModel u) async {
+    Error errors = Error();
+    Either<dynamic, UserModel> response = await _repository.createUser(u);
 
-  Future<Errors> createUser(User u) async {
-    Errors errors = Errors();
-    Either<dynamic, User> response = await _repository.createUser(u);
-
-    response.fold((err) => errors = Errors.fromJson(err), (u) => setUser(u));
+    response.fold((err) => errors = Error.fromJson(err), (u) => _user = u);
 
     return errors;
   }
 
-  Future<Errors> readUser() async {
-    Errors errors = Errors();
+  Future<Error> readUser() async {
+    Error errors = Error();
 
-    Either<dynamic, User> response = await _repository.readUser(user.id, user.token);
+    Either<dynamic, UserModel> response = await _repository.readUser(_user.id, _user.token);
 
-    response.fold((err) => errors = Errors.fromJson(err), (u) => setUser(u));
-
-    return errors;
-  }
-
-  Future<Errors> updateUser() async {
-    Errors errors = Errors();
-
-    Either<dynamic, User> response = await _repository.updateUser(user);
-
-    response.fold((err) => errors = Errors.fromJson(err), (u) => setUser(u));
+    response.fold((err) => errors = Error.fromJson(err), (u) => _user = u);
 
     return errors;
   }
 
-  Future<Errors> deleteUser() async {
-    Errors errors = Errors();
+  Future<Error> updateUser() async {
+    Error errors = Error();
 
-    Either<dynamic, User> response = await _repository.deleteUser(user.id, user.token);
+    Either<dynamic, UserModel> response = await _repository.updateUser(_user);
 
-    response.fold((err) => errors = Errors.fromJson(err), (u) => user = u);
+    response.fold((err) => errors = Error.fromJson(err), (u) => _user = u);
 
     return errors;
   }
 
-  Future<Errors> generateUserToken(String password) async {
-    Errors errors = Errors();
+  Future<Error> deleteUser() async {
+    Error errors = Error();
 
-    Either<dynamic, String> response = await _repository.generateUserToken(email: user.email, password: password);
+    Either<dynamic, UserModel> response = await _repository.deleteUser(_user.id, _user.token);
 
-    response.fold((err) => errors = Errors.fromJson(err), (t) => setToken(t));
+    response.fold((err) => errors = Error.fromJson(err), (u) => _user = u);
 
     return errors;
+  }
+
+  Future<Error> generateUserToken(String password) async {
+    Error errors = Error();
+
+    Either<dynamic, String> response = await _repository.generateUserToken(email: _user.email, password: password);
+
+    response.fold((err) => errors = Error.fromJson(err), (t) => _user.token);
+
+    return errors;
+  }
+
+  Future<bool> findUserByEmail(String email) async {
+    return await _repository.findUserByEmail(email);
+  }
+
+  Future<bool> findUserByUsername(String username) async {
+    return await _repository.findUserByUsername(username);
   }
 }
