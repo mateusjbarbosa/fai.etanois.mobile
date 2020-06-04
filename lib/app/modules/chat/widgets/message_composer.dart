@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
 
 class MessageComposer extends StatefulWidget {
+  final bool isEnable;
+  final String hintMessage;
+  final Function callback;
+
+  const MessageComposer({Key key, this.isEnable, this.hintMessage, this.callback}) : super(key: key);
+
   @override
   _MessageComposerState createState() => _MessageComposerState();
 }
 
 class _MessageComposerState extends State<MessageComposer> {
+  TextEditingController _messageComposerController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,11 +32,13 @@ class _MessageComposerState extends State<MessageComposer> {
           children: <Widget>[
             Expanded(
               child: TextField(
+                controller: _messageComposerController,
+                enabled: widget.isEnable,
                 textCapitalization: TextCapitalization.sentences,
                 onChanged: (value) {},
                 decoration: InputDecoration.collapsed(
                   hintStyle: TextStyle(color: Color(0xFFABABAB)),
-                  hintText: 'Escreva uma mensagem...',
+                  hintText: widget.hintMessage,
                 ),
               ),
             ),
@@ -36,9 +46,14 @@ class _MessageComposerState extends State<MessageComposer> {
               child: Image.asset(
                 'assets/icons/send_message.png',
                 height: 30.0,
-                color: Color(0xFFABABAB),
+                color: widget.isEnable ? Theme.of(context).accentColor : Color(0xFFABABAB),
               ),
-              onTap: () {},
+              onTap: widget.isEnable
+                  ? () {
+                      widget.callback(_messageComposerController.text);
+                      _messageComposerController.clear();
+                    }
+                  : null,
             ),
           ],
         ),
