@@ -92,23 +92,41 @@ class UserRepository implements IUser {
   }
 
   @override
-  Future<String> findUserByEmail(String email) async {
+  Future<bool> findUserByEmail(String email) async {
     try {
+      bool isFree = false;
+
       Response _response = await _dio.client.post('$_userRequests/verify_use_of_credentials', data: {'email': email});
 
-      return _response.data['payload']['use_of_credentials']['email'];
+      String status = _response.data['payload']['use_of_credentials']['email'];
+
+      if (status == 'free-to-use')
+        isFree = true;
+      else
+        isFree = false;
+
+      return isFree;
     } on DioError catch (e) {
       return e.response.data;
     }
   }
 
   @override
-  Future<String> findUserByUsername(String username) async {
+  Future<bool> findUserByUsername(String username) async {
     try {
+      bool isFree = false;
+
       Response _response =
           await _dio.client.post('$_userRequests/verify_use_of_credentials', data: {'username': username});
 
-      return _response.data['payload']['use_of_credentials']['username'];
+      String status = _response.data['payload']['use_of_credentials']['username'];
+
+      if (status == 'free-to-use')
+        isFree = true;
+      else
+        isFree = false;
+
+      return isFree;
     } on DioError catch (e) {
       return e.response.data;
     }

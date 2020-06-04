@@ -66,11 +66,11 @@ class UserController {
     return errors;
   }
 
-  Future<String> findUserByEmail(String email) async {
+  Future<bool> findUserByEmail(String email) async {
     return await _repository.findUserByEmail(email);
   }
 
-  Future<String> findUserByUsername(String username) async {
+  Future<bool> findUserByUsername(String username) async {
     return await _repository.findUserByUsername(username);
   }
 }

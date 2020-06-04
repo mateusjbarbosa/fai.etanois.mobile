@@ -10,6 +10,6 @@ abstract class IUser {
 
   Future<Either<dynamic, String>> generateUserToken({String email, String password});
 
-  Future<String> findUserByEmail(String email);
-  Future<String> findUserByUsername(String username);
+  Future<bool> findUserByEmail(String email);
+  Future<bool> findUserByUsername(String username);
 }
