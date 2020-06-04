@@ -6,6 +6,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 
 import 'package:etanois/app/modules/chat/widgets/chat_message.dart';
 import 'package:etanois/app/modules/chat/widgets/message_composer.dart';
+import 'package:etanois/app/modules/chat/widgets/chat_end_button.dart';
 
 import 'chat_controller.dart';
 
@@ -72,13 +73,15 @@ class _ChatPageState extends ModularState<ChatPage, ChatController> {
           ),
           Observer(
             builder: (BuildContext context) {
-              return MessageComposer(
-                isEnable: !controller.createUserController.getNextMessage,
-                hintMessage: controller.createUserController.hintMessage,
-                callback: (message) {
-                  controller.createUserController.verifyUserMessage(message);
-                },
-              );
+              return controller.createUserController.userCreated
+                  ? ChatEndButton()
+                  : MessageComposer(
+                      isEnable: !controller.createUserController.getNextMessage,
+                      hintMessage: controller.createUserController.hintMessage,
+                      callback: (message) {
+                        controller.createUserController.verifyUserMessage(message);
+                      },
+                    );
             },
           ),
         ],

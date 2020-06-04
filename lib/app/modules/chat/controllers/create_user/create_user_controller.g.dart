@@ -24,6 +24,21 @@ mixin _$CreateUserController on _CreateUserControllerBase, Store {
     });
   }
 
+  final _$userCreatedAtom = Atom(name: '_CreateUserControllerBase.userCreated');
+
+  @override
+  bool get userCreated {
+    _$userCreatedAtom.reportRead();
+    return super.userCreated;
+  }
+
+  @override
+  set userCreated(bool value) {
+    _$userCreatedAtom.reportWrite(value, super.userCreated, () {
+      super.userCreated = value;
+    });
+  }
+
   final _$createUserMessagesAtom = Atom(name: '_CreateUserControllerBase.createUserMessages');
 
   @override
@@ -79,6 +94,7 @@ mixin _$CreateUserController on _CreateUserControllerBase, Store {
   String toString() {
     return '''
 getNextMessage: $getNextMessage,
+userCreated: $userCreated,
 createUserMessages: $createUserMessages,
 hintMessage: $hintMessage
     ''';

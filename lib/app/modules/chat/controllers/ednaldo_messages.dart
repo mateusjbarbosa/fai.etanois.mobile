@@ -6,16 +6,19 @@ class EdnaldoMessages {
       sender: MessageSender.EDNALDO,
       text: 'Olá!',
       waitAction: false,
+      actionType: ActionType.NONE,
     ),
     MessageModel(
       sender: MessageSender.EDNALDO,
       text: 'É muito bom ter você aqui!',
       waitAction: false,
+      actionType: ActionType.NONE,
     ),
     MessageModel(
       sender: MessageSender.EDNALDO,
       text: 'Eu sou o Ednaldo, seu frentista particular!',
       waitAction: false,
+      actionType: ActionType.NONE,
     ),
     MessageModel(
       sender: MessageSender.EDNALDO,
@@ -27,6 +30,7 @@ class EdnaldoMessages {
       sender: MessageSender.EDNALDO,
       text: 'Muito bem!',
       waitAction: false,
+      actionType: ActionType.NONE,
     ),
     MessageModel(
       sender: MessageSender.EDNALDO,
@@ -57,11 +61,13 @@ class EdnaldoMessages {
       sender: MessageSender.EDNALDO,
       text: 'Muito bem, você já faz parte do Etanóis!',
       waitAction: false,
+      actionType: ActionType.NONE,
     ),
     MessageModel(
       sender: MessageSender.EDNALDO,
       text: 'Em alguns instantes, retornarei com algumas perguntas para melhorar ainda mais sua experiência conosco!',
       waitAction: false,
+      actionType: ActionType.NONE,
     ),
     MessageModel(
       sender: MessageSender.EDNALDO,
