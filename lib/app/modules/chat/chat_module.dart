@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:etanois/app/modules/home/home_page.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -24,7 +25,8 @@ class ChatModule extends ChildModule {
 
   @override
   List<Router> get routers => [
-        Router(Modular.initialRoute, child: (_, args) => ChatPage()),
+        Router('/', child: (_, args) => ChatPage()),
+        Router('/home', child: (_, args) => HomePage()),
       ];
 
   static Inject get to => Inject<ChatModule>.of();

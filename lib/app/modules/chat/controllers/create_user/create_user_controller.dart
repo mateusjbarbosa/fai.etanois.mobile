@@ -32,6 +32,9 @@ abstract class _CreateUserControllerBase with Store {
   bool getNextMessage = true;
 
   @observable
+  bool userCreated = false;
+
+  @observable
   ObservableList<MessageModel> createUserMessages = <MessageModel>[].asObservable();
 
   @observable
@@ -59,29 +62,34 @@ abstract class _CreateUserControllerBase with Store {
     switch (currentMessage.actionType) {
       case ActionType.INPUT_NAME:
         hintMessage = 'Digite seu nome completo!';
+        getNextMessage = false;
         break;
       case ActionType.INPUT_USERNAME:
         hintMessage = 'Digite um apelido bem bacana!';
+        getNextMessage = false;
         break;
       case ActionType.INPUT_EMAIL:
         hintMessage = 'Digite seu melhor e-mail!';
+        getNextMessage = false;
         break;
       case ActionType.INPUT_PASSWORD:
         hintMessage = 'Digite uma senha forte!';
+        getNextMessage = false;
         break;
-      default:
+      case ActionType.CREATE_USER:
+        Error errors = await userController.createUser(user);
+
+        if (errors.code == null) {
+          getNextMessage = true;
+        }
+        break;
+      case ActionType.GO_HOME:
+        userCreated = true;
+        break;
+      case ActionType.NONE:
         hintMessage = 'Escreva uma mensagem...';
+        getNextMessage = false;
         break;
-    }
-
-    if (currentMessage.actionType == ActionType.CREATE_USER) {
-      Error errors = await userController.createUser(user);
-
-      if (errors.code == null) {
-        getNextMessage = true;
-      }
-    } else {
-      getNextMessage = false;
     }
   }
 
