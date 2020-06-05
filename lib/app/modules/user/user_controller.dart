@@ -17,6 +17,10 @@ class UserController {
     return _user;
   }
 
+  String getFirstName() {
+    return _user.name.split(' ')[0];
+  }
+
   Future<Error> createUser(UserModel u) async {
     Error errors = Error();
     Either<dynamic, UserModel> response = await _repository.createUser(u);
