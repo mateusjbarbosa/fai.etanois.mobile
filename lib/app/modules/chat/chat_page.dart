@@ -20,7 +20,7 @@ class _ChatPageState extends ModularState<ChatPage, ChatController> {
   void initState() {
     super.initState();
 
-    controller.createUserController.manageMessages();
+    controller.manageChat();
   }
 
   @override
@@ -61,9 +61,9 @@ class _ChatPageState extends ModularState<ChatPage, ChatController> {
                   builder: (context) {
                     return ListView.builder(
                       reverse: true,
-                      itemCount: controller.createUserController.createUserMessages.length,
+                      itemCount: controller.chatMessages.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return ChatMessage(message: controller.createUserController.createUserMessages[index]);
+                        return ChatMessage(message: controller.chatMessages[index]);
                       },
                     );
                   },
@@ -73,13 +73,13 @@ class _ChatPageState extends ModularState<ChatPage, ChatController> {
           ),
           Observer(
             builder: (BuildContext context) {
-              return controller.createUserController.userCreated
+              return controller.userCreated
                   ? ChatEndButton()
                   : MessageComposer(
-                      isEnable: !controller.createUserController.getNextMessage,
-                      hintMessage: controller.createUserController.hintMessage,
+                      isEnable: !controller.getNextMessage,
+                      hintMessage: controller.hintMessage,
                       callback: (message) {
-                        controller.createUserController.verifyUserMessage(message);
+                        controller.verifyUserMessage(message);
                       },
                     );
             },

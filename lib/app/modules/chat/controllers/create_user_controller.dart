@@ -1,101 +1,70 @@
 import 'package:get_it/get_it.dart';
-import 'package:mobx/mobx.dart';
 
-import 'package:etanois/app/modules/chat/controllers/ednaldo_messages.dart';
 import 'package:etanois/app/modules/chat/model/message_model.dart';
 
 import 'package:etanois/app/modules/user/model/user_model.dart';
+
 import 'package:etanois/app/modules/user/user_controller.dart';
 
 import 'package:etanois/app/shared/utils/error.dart';
 import 'package:etanois/app/shared/utils/time.dart';
 
-part 'create_user_controller.g.dart';
-
-class CreateUserController = _CreateUserControllerBase with _$CreateUserController;
-
-abstract class _CreateUserControllerBase with Store {
-  EdnaldoMessages messages = EdnaldoMessages();
-
-  int indexLastMessage = 0;
-
-  MessageModel currentMessage;
-
-  Time time = Time();
-
+class CreateUserController {
   UserModel user = UserModel();
 
   UserController userController = GetIt.I.get<UserController>();
 
-  _CreateUserControllerBase();
+  Time time = Time();
 
-  @observable
-  bool getNextMessage = true;
+  Future<Map<String, dynamic>> verifyMessage(ActionType actionType) async {
+    Map<String, dynamic> response = Map<String, dynamic>();
 
-  @observable
-  bool userCreated = false;
-
-  @observable
-  ObservableList<MessageModel> createUserMessages = <MessageModel>[].asObservable();
-
-  @observable
-  String hintMessage = 'Escreva uma mensagem...';
-
-  @action
-  Future<void> manageMessages() async {
-    while (getNextMessage) {
-      await Future.delayed(Duration(seconds: 2));
-
-      currentMessage = messages.createUserMessages[indexLastMessage++];
-
-      currentMessage.time = time.generateTime();
-
-      createUserMessages.insert(0, currentMessage);
-
-      if (currentMessage.waitAction) {
-        _verifyMessage();
-      }
-    }
-  }
-
-  @action
-  Future<void> _verifyMessage() async {
-    switch (currentMessage.actionType) {
+    switch (actionType) {
       case ActionType.INPUT_NAME:
-        hintMessage = 'Digite seu nome completo!';
-        getNextMessage = false;
+        response['hintMessage'] = 'Digite seu nome completo!';
+        response['getNextMessage'] = false;
         break;
       case ActionType.INPUT_USERNAME:
-        hintMessage = 'Digite um apelido bem bacana!';
-        getNextMessage = false;
+        response['hintMessage'] = 'Digite um apelido bem bacana!';
+        response['getNextMessage'] = false;
         break;
       case ActionType.INPUT_EMAIL:
-        hintMessage = 'Digite seu melhor e-mail!';
-        getNextMessage = false;
+        response['hintMessage'] = 'Digite seu melhor e-mail!';
+        response['getNextMessage'] = false;
         break;
       case ActionType.INPUT_PASSWORD:
-        hintMessage = 'Digite uma senha forte!';
-        getNextMessage = false;
+        response['hintMessage'] = 'Digite uma senha forte!';
+        response['getNextMessage'] = false;
         break;
       case ActionType.CREATE_USER:
         Error errors = await userController.createUser(user);
 
         if (errors.code == null) {
-          getNextMessage = true;
+          response['hintMessage'] = 'Escreva uma mensagem...';
+          response['getNextMessage'] = true;
         }
         break;
       case ActionType.GO_HOME:
-        userCreated = true;
+        response['hintMessage'] = 'Escreva uma mensagem...';
+        response['userCreated'] = true;
+        response['getNextMessage'] = false;
+        break;
+      case ActionType.SELECT:
+        response['hintMessage'] = 'Selecione uma das opções acima...';
+        response['getNextMessage'] = false;
         break;
       case ActionType.NONE:
-        hintMessage = 'Escreva uma mensagem...';
-        getNextMessage = false;
+        response['hintMessage'] = 'Escreva uma mensagem...';
+        response['getNextMessage'] = true;
         break;
     }
+
+    return response;
   }
 
-  @action
-  Future<void> verifyUserMessage(String message) async {
+  Future<Map<String, dynamic>> verifyUserMessage(String message, ActionType actionType) async {
+    Map<String, dynamic> response = Map<String, dynamic>();
+
     MessageModel verifyMessage = MessageModel(
       text: '',
       time: time.generateTime(),
@@ -110,18 +79,19 @@ abstract class _CreateUserControllerBase with Store {
       waitAction: false,
     );
 
-    switch (currentMessage.actionType) {
+    switch (actionType) {
       case ActionType.INPUT_NAME:
         if (message.length >= 6 && message.length <= 50) {
           user.name = message;
 
           userMessage.text = message;
-          createUserMessages.insert(0, userMessage);
-          getNextMessage = true;
+
+          response['userMessage'] = userMessage;
+          response['getNextMessage'] = true;
         } else {
           verifyMessage.text = 'O nome deve possuir entre 6 e 50 letras! Por favor, digite novamente.';
           verifyMessage.actionType = ActionType.INPUT_NAME;
-          createUserMessages.insert(0, verifyMessage);
+          response['verifyMessage'] = verifyMessage;
         }
         break;
       case ActionType.INPUT_USERNAME:
@@ -132,19 +102,22 @@ abstract class _CreateUserControllerBase with Store {
             user.username = message;
 
             userMessage.text = message;
-            createUserMessages.insert(0, userMessage);
-            getNextMessage = true;
+            response['userMessage'] = userMessage;
+            response['getNextMessage'] = true;
           } else {
             userMessage.text = message;
-            createUserMessages.insert(0, userMessage);
+            response['userMessage'] = userMessage;
+
             verifyMessage.text = 'Infelizmente esse apelido já está em uso! Por favor, digite novamente';
             verifyMessage.actionType = ActionType.INPUT_USERNAME;
-            createUserMessages.insert(0, verifyMessage);
+            response['verifyMessage'] = verifyMessage;
+            response['getNextMessage'] = false;
           }
         } else {
           verifyMessage.text = 'O username deve possuir entre 3 e 30 letras! Por favor, digite novamente.';
           verifyMessage.actionType = ActionType.INPUT_USERNAME;
-          createUserMessages.insert(0, verifyMessage);
+          response['verifyMessage'] = verifyMessage;
+          response['getNextMessage'] = false;
         }
         break;
       case ActionType.INPUT_EMAIL:
@@ -163,19 +136,23 @@ abstract class _CreateUserControllerBase with Store {
             user.email = message;
 
             userMessage.text = message;
-            createUserMessages.insert(0, userMessage);
-            getNextMessage = true;
+
+            response['userMessage'] = userMessage;
+            response['getNextMessage'] = true;
           } else {
             userMessage.text = message;
-            createUserMessages.insert(0, userMessage);
+            response['userMessage'] = userMessage;
+
             verifyMessage.text = 'Infelizmente esse e-mail já está em uso! Por favor, digite novamente';
             verifyMessage.actionType = ActionType.INPUT_EMAIL;
-            createUserMessages.insert(0, verifyMessage);
+            response['verifyMessage'] = verifyMessage;
+            response['getNextMessage'] = false;
           }
         } else {
           verifyMessage.text = 'E-mail inválido! Por favor, digite novamente.';
           verifyMessage.actionType = ActionType.INPUT_EMAIL;
-          createUserMessages.insert(0, verifyMessage);
+          response['verifyMessage'] = verifyMessage;
+          response['getNextMessage'] = false;
         }
         break;
       case ActionType.INPUT_PASSWORD:
@@ -183,18 +160,20 @@ abstract class _CreateUserControllerBase with Store {
           user.password = message;
 
           userMessage.text = message;
-          createUserMessages.insert(0, userMessage);
-          getNextMessage = true;
+
+          response['userMessage'] = userMessage;
+          response['getNextMessage'] = true;
         } else {
           verifyMessage.text = 'A senha deve possuir entre 6 e 20 caracteres! Por favor, digite novamente.';
           verifyMessage.actionType = ActionType.INPUT_PASSWORD;
-          createUserMessages.insert(0, verifyMessage);
+          response['verifyMessage'] = verifyMessage;
+          response['getNextMessage'] = false;
         }
         break;
       default:
         break;
     }
 
-    manageMessages();
+    return response;
   }
 }

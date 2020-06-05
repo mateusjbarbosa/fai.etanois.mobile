@@ -4,6 +4,7 @@ class MessageModel {
   String time;
   bool waitAction;
   ActionType actionType;
+  List<String> actions;
 
   MessageModel({
     this.text,
@@ -11,9 +12,10 @@ class MessageModel {
     this.time,
     this.waitAction,
     this.actionType,
+    this.actions,
   });
 }
 
 enum MessageSender { EDNALDO, USER }
 
-enum ActionType { INPUT_NAME, INPUT_USERNAME, INPUT_EMAIL, INPUT_PASSWORD, CREATE_USER, GO_HOME, NONE }
+enum ActionType { INPUT_NAME, INPUT_USERNAME, INPUT_EMAIL, INPUT_PASSWORD, CREATE_USER, GO_HOME, SELECT, NONE }
