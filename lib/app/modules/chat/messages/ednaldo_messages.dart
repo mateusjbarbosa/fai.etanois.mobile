@@ -1,7 +1,27 @@
 import 'package:etanois/app/modules/chat/model/message_model.dart';
 
 class EdnaldoMessages {
-  List<MessageModel> createUserMessages = [
+  static int _initChatIndex = 0;
+  static int _createUserChatIndex = 0;
+
+  MessageModel getNextMessage(String chat) {
+    MessageModel message = MessageModel();
+
+    switch (chat) {
+      case 'init_chat':
+        message = _initChatMessages[_initChatIndex++];
+        break;
+      case 'create_user_chat':
+        message = _createUserMessages[_createUserChatIndex++];
+        break;
+      default:
+        break;
+    }
+
+    return message;
+  }
+
+  List<MessageModel> _initChatMessages = [
     MessageModel(
       sender: MessageSender.EDNALDO,
       text: 'Olá!',
@@ -20,6 +40,28 @@ class EdnaldoMessages {
       waitAction: false,
       actionType: ActionType.NONE,
     ),
+    MessageModel(
+      sender: MessageSender.EDNALDO,
+      text: 'Para prosseguirmos, selecione uma das opções abaixo',
+      waitAction: false,
+      actionType: ActionType.NONE,
+    ),
+    MessageModel(
+      sender: MessageSender.EDNALDO,
+      text: 'Se você já possui conta no Etanóis, selecione a opção ACESSAR CONTA',
+      waitAction: false,
+      actionType: ActionType.NONE,
+    ),
+    MessageModel(
+      sender: MessageSender.EDNALDO,
+      text: 'Se você é novo por aqui, selecione a opção CRIAR CONTA',
+      waitAction: true,
+      actionType: ActionType.SELECT,
+      actions: ['ACESSAR CONTA', 'CRIAR CONTA'],
+    ),
+  ];
+
+  List<MessageModel> _createUserMessages = [
     MessageModel(
       sender: MessageSender.EDNALDO,
       text: 'Para começar, pode me dizer o seu nome?',
