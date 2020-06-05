@@ -35,7 +35,6 @@ class _MessageComposerState extends State<MessageComposer> {
                 controller: _messageComposerController,
                 enabled: widget.isEnable,
                 textCapitalization: TextCapitalization.sentences,
-                onChanged: (value) {},
                 decoration: InputDecoration.collapsed(
                   hintStyle: TextStyle(color: Color(0xFFABABAB)),
                   hintText: widget.hintMessage,
