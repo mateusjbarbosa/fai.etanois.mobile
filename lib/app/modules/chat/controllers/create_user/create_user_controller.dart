@@ -1,3 +1,4 @@
+import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
 
 import 'package:etanois/app/modules/chat/controllers/ednaldo_messages.dart';
@@ -24,9 +25,9 @@ abstract class _CreateUserControllerBase with Store {
 
   UserModel user = UserModel();
 
-  final UserController userController;
+  UserController userController = GetIt.I.get<UserController>();
 
-  _CreateUserControllerBase(this.userController);
+  _CreateUserControllerBase();
 
   @observable
   bool getNextMessage = true;
