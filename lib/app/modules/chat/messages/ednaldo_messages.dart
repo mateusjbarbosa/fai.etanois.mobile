@@ -1,18 +1,25 @@
 import 'package:etanois/app/modules/chat/model/message_model.dart';
 
+import '../chat_controller.dart';
+import '../model/message_model.dart';
+
 class EdnaldoMessages {
   static int _initChatIndex = 0;
-  static int _createUserChatIndex = 0;
+  static int _createAccountChatIndex = 0;
+  static int _loginChatIndex = 0;
 
-  MessageModel getNextMessage(String chat) {
+  MessageModel getNextMessage(ChatType chat) {
     MessageModel message = MessageModel();
 
     switch (chat) {
-      case 'init_chat':
+      case ChatType.INIT:
         message = _initChatMessages[_initChatIndex++];
         break;
-      case 'create_user_chat':
-        message = _createUserMessages[_createUserChatIndex++];
+      case ChatType.CREATE_ACCOUNT:
+        message = _createAccountMessages[_createAccountChatIndex++];
+        break;
+      case ChatType.LOGIN:
+        message = _loginMessages[_loginChatIndex++];
         break;
       default:
         break;
@@ -61,7 +68,7 @@ class EdnaldoMessages {
     ),
   ];
 
-  List<MessageModel> _createUserMessages = [
+  List<MessageModel> _createAccountMessages = [
     MessageModel(
       sender: MessageSender.EDNALDO,
       text: 'Para começar, pode me dizer o seu nome?',
@@ -114,6 +121,47 @@ class EdnaldoMessages {
     MessageModel(
       sender: MessageSender.EDNALDO,
       text: 'Enquanto isso, navegue pelo Etanóis!',
+      waitAction: true,
+      actionType: ActionType.GO_HOME,
+    ),
+  ];
+
+  List<MessageModel> _loginMessages = [
+    MessageModel(
+      sender: MessageSender.EDNALDO,
+      text: 'Certo, preciso que você me diga suas credenciais de acesso.',
+      waitAction: false,
+      actionType: ActionType.NONE,
+    ),
+    MessageModel(
+      sender: MessageSender.EDNALDO,
+      text: 'Precisamos do e-mail cadastro no Etanóis ou seu apelido. Qual você prefere?',
+      waitAction: true,
+      actionType: ActionType.SELECT,
+      actions: ['E-MAIL', 'APELIDO'],
+    ),
+    MessageModel(
+      sender: MessageSender.EDNALDO,
+      text: 'Muito bem, pode digitar!',
+      waitAction: true,
+      actionType: ActionType.INPUT_EMAIL,
+    ),
+    MessageModel(
+      sender: MessageSender.EDNALDO,
+      text: 'Agora precisamos da senha de acesso!',
+      waitAction: true,
+      actionType: ActionType.INPUT_PASSWORD,
+    ),
+    MessageModel(
+      sender: MessageSender.EDNALDO,
+      text: 'Aguarde um instante, estou gerando seu acesso!',
+      waitAction: true,
+      actionType: ActionType.LOGIN,
+    ),
+    MessageModel(
+      sender: MessageSender.EDNALDO,
+      text:
+          'Muito bem, acesso permitido. Seja bem vindo de volta, nomeUsuario! Finalize o chat para utilizar o Etanóis.',
       waitAction: true,
       actionType: ActionType.GO_HOME,
     ),

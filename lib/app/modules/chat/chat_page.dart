@@ -71,19 +71,70 @@ class _ChatPageState extends ModularState<ChatPage, ChatController> {
               ),
             ),
           ),
-          Observer(
-            builder: (BuildContext context) {
-              return controller.userCreated
-                  ? ChatEndButton()
-                  : MessageComposer(
-                      isEnable: !controller.getNextMessage,
-                      hintMessage: controller.hintMessage,
-                      callback: (message) {
-                        controller.verifyUserMessage(message);
-                      },
-                    );
-            },
-          ),
+          Observer(builder: (context) {
+            return controller.haveActions
+                ? Container(
+                    padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
+                    height: 60.0,
+                    color: Color(0xFFF7F7F7),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Expanded(
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemCount: controller.currentMessage.actions.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                                child: Container(
+                                  padding: EdgeInsets.only(left: 15.0, right: 15.0),
+                                  decoration: BoxDecoration(
+                                    color: Theme.of(context).accentColor,
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(30.0),
+                                    ),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      GestureDetector(
+                                        onTap: () {
+                                          controller.setChosenOptions(controller.currentMessage.actions[index]);
+                                        },
+                                        child: Text(
+                                          controller.currentMessage.actions[index],
+                                          style: TextStyle(
+                                            fontSize: 20.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: Color(0xFFF7F7F7),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                : Container();
+          }),
+          Observer(builder: (BuildContext context) {
+            return (controller.userCreated || controller.loginAccepted)
+                ? ChatEndButton()
+                : MessageComposer(
+                    isEnable: !controller.getNextMessage,
+                    hintMessage: controller.hintMessage,
+                    callback: (message) {
+                      controller.verifyUserMessage(message);
+                    },
+                  );
+          }),
         ],
       ),
     );
