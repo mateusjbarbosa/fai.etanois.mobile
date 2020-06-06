@@ -50,7 +50,7 @@ class _MenuPageState extends ModularState<MenuPage, MenuController> {
               text: 'Em breve...',
             ),
             ButtonMenu(text: 'ADICIONE ETANOIS', route: '', type: 'large'),
-            ButtonMenu(text: 'EDITAR PERFIL', route: '', type: 'large'),
+            ButtonMenu(text: 'EDITAR PERFIL', route: '/editar-perfil', type: 'large'),
             ButtonMenu(text: 'ÁREA DO FRENTISTA', route: '', type: 'large'),
             ButtonMenu(text: 'AJUDA', route: '', type: 'small'),
             ButtonMenu(text: 'SAIR', route: '', type: 'small'),
