@@ -24,6 +24,36 @@ mixin _$ChatController on _ChatControllerBase, Store {
     });
   }
 
+  final _$loginAcceptedAtom = Atom(name: '_ChatControllerBase.loginAccepted');
+
+  @override
+  bool get loginAccepted {
+    _$loginAcceptedAtom.reportRead();
+    return super.loginAccepted;
+  }
+
+  @override
+  set loginAccepted(bool value) {
+    _$loginAcceptedAtom.reportWrite(value, super.loginAccepted, () {
+      super.loginAccepted = value;
+    });
+  }
+
+  final _$haveActionsAtom = Atom(name: '_ChatControllerBase.haveActions');
+
+  @override
+  bool get haveActions {
+    _$haveActionsAtom.reportRead();
+    return super.haveActions;
+  }
+
+  @override
+  set haveActions(bool value) {
+    _$haveActionsAtom.reportWrite(value, super.haveActions, () {
+      super.haveActions = value;
+    });
+  }
+
   final _$hintMessageAtom = Atom(name: '_ChatControllerBase.hintMessage');
 
   @override
@@ -87,6 +117,8 @@ mixin _$ChatController on _ChatControllerBase, Store {
   String toString() {
     return '''
 userCreated: $userCreated,
+loginAccepted: $loginAccepted,
+haveActions: $haveActions,
 hintMessage: $hintMessage,
 getNextMessage: $getNextMessage,
 chatMessages: $chatMessages

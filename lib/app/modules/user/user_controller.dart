@@ -60,12 +60,16 @@ class UserController {
     return errors;
   }
 
-  Future<Error> generateUserToken(String password) async {
+  Future<Error> generateUserToken(String email, String password) async {
     Error errors = Error();
 
-    Either<dynamic, String> response = await _repository.generateUserToken(email: _user.email, password: password);
+    Either<dynamic, Map<String, dynamic>> response =
+        await _repository.generateUserToken(email: email, password: password);
 
-    response.fold((err) => errors = Error.fromJson(err), (t) => _user.token);
+    response.fold((err) => errors = Error.fromJson(err), (u) {
+      _user.id = u['id'];
+      _user.token = u['token'];
+    });
 
     return errors;
   }
