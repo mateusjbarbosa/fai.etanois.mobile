@@ -41,13 +41,5 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>io.flutter.embedded_views_preview</key>
-	<true/>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>O Etanóis precisa acessar sua localização para pleno funcionamento.</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>O Etanóis precisa acessar sua localização para pleno funcionamento.</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>O Etanóis precisa acessar sua localização para pleno funcionamento.</string>
 </dict>
 </plist>

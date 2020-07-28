@@ -1,12 +1,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="br.com.etanois.etanois">
-    
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-               
+    package="fai.etanois.etanois">
+    <!-- io.flutter.app.FlutterApplication is an android.app.Application that
+         calls FlutterMain.startInitialization(this); in its onCreate method.
+         In most cases you can leave this as-is, but you if you want to provide
+         additional functionality it is fine to subclass or reimplement
+         FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="Etanóis"
+        android:label="etanois"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
@@ -42,8 +43,5 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-
-            <meta-data android:name="com.google.android.geo.API_KEY"
-               android:value="AIzaSyBqo8CCkW7o4ZZheJ6T8EmefAprTeSAOKs"/>
     </application>
 </manifest>

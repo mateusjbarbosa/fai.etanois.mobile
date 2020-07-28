@@ -1,6 +1,6 @@
 # etanois
 
-Aplicação mobile para o Etanóis, um motor de busca por postos de combustível pela localização do usuário
+A new Flutter project.
 
 ## Getting Started
 
