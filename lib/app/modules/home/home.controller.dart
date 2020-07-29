@@ -1,6 +1,6 @@
 import 'package:mobx/mobx.dart';
 
-part 'home_controller.g.dart';
+part 'home.controller.g.dart';
 
 class HomeController = _HomeControllerBase with _$HomeController;
 

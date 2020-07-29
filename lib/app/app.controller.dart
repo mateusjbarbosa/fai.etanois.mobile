@@ -1,6 +1,6 @@
 import 'package:mobx/mobx.dart';
 
-part 'app_controller.g.dart';
+part 'app.controller.g.dart';
 
 class AppController = _AppControllerBase with _$AppController;
 
