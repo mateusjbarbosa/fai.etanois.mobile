@@ -15,12 +15,16 @@ class CreateUserController {
 
   Time time = Time();
 
-  Future<Map<String, dynamic>> verifyMessage(ChatActions chatAction) async {
+  Future<Map<String, dynamic>> verifyMessage(Message message) async {
     Map<String, dynamic> response = Map<String, dynamic>();
 
-    switch (chatAction) {
+    switch (message.chatAction) {
       case ChatActions.CREATE_USER:
         Error errors = await userController.createUser(user);
+
+        if (errors.code == null) {
+          message.waitAction = false;
+        }
         break;
       case ChatActions.GO_HOME:
         response['userCreated'] = true;
@@ -64,8 +68,10 @@ class CreateUserController {
           userMessage.text = message;
 
           response['userMessage'] = userMessage;
-          response['getNextMessage'] = true;
         } else {
+          userMessage.text = message;
+          response['userMessage'] = userMessage;
+
           verifiedMessage.text =
               'O nome deve possuir entre 6 e 50 letras! Por favor, digite novamente.';
           verifiedMessage.chatAction = ChatActions.INPUT_NAME;
@@ -81,7 +87,6 @@ class CreateUserController {
 
             userMessage.text = message;
             response['userMessage'] = userMessage;
-            response['getNextMessage'] = true;
           } else {
             userMessage.text = message;
             response['userMessage'] = userMessage;
@@ -90,14 +95,14 @@ class CreateUserController {
                 'Infelizmente esse apelido já está em uso! Por favor, digite novamente';
             verifiedMessage.chatAction = ChatActions.INPUT_USERNAME;
             response['verifiedMessage'] = verifiedMessage;
-            response['getNextMessage'] = false;
           }
         } else {
+          userMessage.text = message;
+          response['userMessage'] = userMessage;
           verifiedMessage.text =
               'O username deve possuir entre 3 e 30 letras! Por favor, digite novamente.';
           verifiedMessage.chatAction = ChatActions.INPUT_USERNAME;
           response['verifiedMessage'] = verifiedMessage;
-          response['getNextMessage'] = false;
         }
         break;
       case ChatActions.INPUT_EMAIL:
@@ -118,7 +123,6 @@ class CreateUserController {
             userMessage.text = message;
 
             response['userMessage'] = userMessage;
-            response['getNextMessage'] = true;
           } else {
             userMessage.text = message;
             response['userMessage'] = userMessage;
@@ -127,14 +131,14 @@ class CreateUserController {
                 'Infelizmente esse e-mail já está em uso! Por favor, digite novamente';
             verifiedMessage.chatAction = ChatActions.INPUT_EMAIL;
             response['verifiedMessage'] = verifiedMessage;
-            response['getNextMessage'] = false;
           }
         } else {
+          userMessage.text = message;
+          response['userMessage'] = userMessage;
           verifiedMessage.text =
               'E-mail inválido! Por favor, digite novamente.';
           verifiedMessage.chatAction = ChatActions.INPUT_EMAIL;
           response['verifiedMessage'] = verifiedMessage;
-          response['getNextMessage'] = false;
         }
         break;
       case ChatActions.INPUT_PASSWORD:
@@ -146,11 +150,13 @@ class CreateUserController {
           response['userMessage'] = userMessage;
           response['getNextMessage'] = true;
         } else {
+          userMessage.text = message;
+          response['userMessage'] = userMessage;
+
           verifiedMessage.text =
               'A senha deve possuir entre 6 e 20 caracteres! Por favor, digite novamente.';
           verifiedMessage.chatAction = ChatActions.INPUT_PASSWORD;
           response['verifiedMessage'] = verifiedMessage;
-          response['getNextMessage'] = false;
         }
         break;
       default:

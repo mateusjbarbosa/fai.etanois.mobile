@@ -29,6 +29,15 @@ dev_dependencies:
 flutter:
   uses-material-design: true
 
+  assets:
+    - assets/icons/menu.png
+    - assets/icons/moon.png
+    - assets/icons/radar.png
+    - assets/icons/route.png
+    - assets/icons/send_message.png
+
+    - assets/map.style.txt
+
 vars:
   # MOBX
   clean: flutter clean
@@ -36,8 +45,8 @@ vars:
   runner: flutter pub run build_runner
 
   # ADB
-  ip_device: 192.168.10.101
-  port: 5555
+  ip: '192.168.20.101'
+  port: '5555'
 
 scripts:
   # MOBX
@@ -45,4 +54,4 @@ scripts:
   mobx_watch: $clean & $get & $runner watch --delete-conflicting-outputs
 
   # ADB
-  adb_connect: adb connect $ip_device:$port
+  adb_connect: adb connect $ip:$port

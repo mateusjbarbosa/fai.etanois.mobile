@@ -63,6 +63,7 @@ abstract class _ChatControllerBase with Store {
       await Future.delayed(Duration(seconds: 2));
 
       currentMessage = messages.getNextMessage(currentChat);
+      hintMessage = currentMessage.hintMessage;
 
       currentMessage.time = time.generateTime();
 
@@ -73,14 +74,11 @@ abstract class _ChatControllerBase with Store {
       if (currentMessage.waitAction) {
         switch (currentChat) {
           case ChatType.WELCOME:
-            hintMessage = currentMessage.hintMessage;
             getNextMessage = !currentMessage.waitAction;
             break;
           case ChatType.CREATE_ACCOUNT:
-            response = await createUserController
-                .verifyMessage(currentMessage.chatAction);
+            response = await createUserController.verifyMessage(currentMessage);
 
-            hintMessage = currentMessage.hintMessage;
             getNextMessage = !currentMessage.waitAction;
 
             if (response.containsKey('userCreated')) {
@@ -91,7 +89,6 @@ abstract class _ChatControllerBase with Store {
             response = await loginChatController
                 .verifyMessage(currentMessage.chatAction);
 
-            hintMessage = currentMessage.hintMessage;
             getNextMessage = !currentMessage.waitAction;
 
             if (response.containsKey('loginAccepted')) {
