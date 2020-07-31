@@ -9,7 +9,8 @@ class AppWidget extends StatelessWidget {
       navigatorKey: Modular.navigatorKey,
       title: 'Etanóis',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Color(0xFFFF9800),
+        accentColor: Color(0xFF202B30),
       ),
       initialRoute: '/',
       onGenerateRoute: Modular.generateRoute,

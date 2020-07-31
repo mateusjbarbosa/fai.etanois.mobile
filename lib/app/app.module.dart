@@ -4,6 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'app.controller.dart';
 
 import 'package:etanois/app/modules/home/home.module.dart';
+import 'package:etanois/app/modules/chat/chat_module.dart';
 
 import 'package:etanois/app/app.widget.dart';
 
@@ -15,7 +16,8 @@ class AppModule extends MainModule {
 
   @override
   List<Router> get routers => [
-        Router(Modular.initialRoute, module: HomeModule()),
+        Router("/", module: ChatModule()),
+        Router("/home", module: HomeModule()),
       ];
 
   @override
