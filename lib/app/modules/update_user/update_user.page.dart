@@ -5,6 +5,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:etanois/app/modules/update_user/widgets/button_menu.widget.dart';
 import 'package:etanois/app/modules/update_user/widgets/content_item.widget.dart';
 import 'package:etanois/app/modules/update_user/widgets/title_item.widget.dart';
+import 'package:etanois/app/modules/update_user/widgets/dialog.widget.dart';
 
 import 'update_user.controller.dart';
 
@@ -15,6 +16,13 @@ class UpdateUserPage extends StatefulWidget {
 
 class _UpdateUserPageState
     extends ModularState<UpdateUserPage, UpdateUserController> {
+  @override
+  void initState() {
+    controller.userName = controller.userController.user.name;
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,19 +52,46 @@ class _UpdateUserPageState
             Row(
               children: <Widget>[
                 CircleAvatar(
-                  backgroundImage: AssetImage(
-                    'assets/icons/default_user_photo.png',
+                  child: ClipOval(
+                    child: Image.memory(
+                      controller.userController.getImage(),
+                    ),
                   ),
                 ),
                 SizedBox(
                   width: 8.0,
                 ),
-                Expanded(
+                Observer(builder: (context) {
+                  return Expanded(
                     child: ContentItem(
-                  text: '${controller.userController.user.name}',
-                )),
+                      text: controller.userName,
+                    ),
+                  );
+                }),
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) => DialogWidget(
+                        title: "Alterar foto e nome",
+                        description:
+                            "Selecione uma nova foto bem bacana para seu perfil e/ou altere seu nome, caso queire!",
+                        image: controller.userController.getImage(),
+                        name: TextEditingController(
+                          text: controller.userName,
+                        ),
+                        callbackName: (String name) {
+                          if (name != controller.userName) {
+                            controller.editUser.name = name;
+                            controller.userName = name;
+                          }
+                        },
+                        callbackImage: (String image) {
+                          controller.editUser.image = image;
+                        },
+                      ),
+                    );
+                  },
                   icon: Icon(Icons.edit),
                 )
               ],

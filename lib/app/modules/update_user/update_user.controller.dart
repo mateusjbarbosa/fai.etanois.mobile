@@ -17,10 +17,8 @@ abstract class _UpdateUserControllerBase with Store {
   User editUser = User();
 
   @observable
-  bool saveChanges = false;
+  String userName = '';
 
-  @action
-  void haveChanges(bool c) {
-    saveChanges = c;
-  }
+  @observable
+  bool saveChanges = false;
 }
