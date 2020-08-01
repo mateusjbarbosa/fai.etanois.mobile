@@ -1,3 +1,4 @@
+import 'package:etanois/core/utils/works.page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -17,8 +18,9 @@ class AppModule extends MainModule {
 
   @override
   List<Router> get routers => [
-        Router("/", module: ChatModule()),
-        Router("/home", module: HomeModule()),
+        Router('/', module: ChatModule()),
+        Router('/works', child: (_, args) => WorksPage()),
+        Router('/home', module: HomeModule()),
         Router('/menu', module: MenuModule()),
       ];
 

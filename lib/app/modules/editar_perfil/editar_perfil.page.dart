@@ -61,12 +61,12 @@ class _EditarPerfilPageState
             ContentItem(
               text: '${controller.userController.user.email}',
             ),
-            ButtonMenu(text: 'PREFERÊNCIAS', route: '', type: 'large'),
+            ButtonMenu(text: 'PREFERÊNCIAS', route: '/works', type: 'large'),
             Observer(
               builder: (context) {
                 return ButtonMenu(
                   text: 'SALVAR ALTERAÇÕES',
-                  route: '',
+                  route: '/works',
                   type: 'large',
                   colorButton: controller.saveChanges
                       ? Theme.of(context).accentColor
@@ -79,13 +79,13 @@ class _EditarPerfilPageState
             TitleItem(text: 'CUIDADO'),
             ButtonMenu(
               text: 'ALTERAR SENHA',
-              route: '',
+              route: '/works',
               type: 'small',
               colorButton: Theme.of(context).primaryColor,
             ),
             ButtonMenu(
               text: 'INATIVAR CONTA',
-              route: '',
+              route: '/works',
               type: 'small',
               colorButton: Color.fromRGBO(255, 0, 0, .7),
               colorText: Color(0xFFF7F7F7),

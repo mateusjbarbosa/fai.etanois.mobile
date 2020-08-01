@@ -49,14 +49,16 @@ class _MenuPageState extends ModularState<MenuPage, MenuController> {
             ContentItem(
               text: 'Em breve...',
             ),
-            ButtonMenu(text: 'ADICIONE ETANOIS', route: '', type: 'large'),
+            ButtonMenu(
+                text: 'ADICIONE ETANOIS', route: '/works', type: 'large'),
             ButtonMenu(
                 text: 'EDITAR PERFIL',
                 route: '/menu/editar-perfil',
                 type: 'large'),
-            ButtonMenu(text: 'ÁREA DO FRENTISTA', route: '', type: 'large'),
-            ButtonMenu(text: 'AJUDA', route: '', type: 'small'),
-            ButtonMenu(text: 'SAIR', route: '', type: 'small'),
+            ButtonMenu(
+                text: 'ÁREA DO FRENTISTA', route: '/works', type: 'large'),
+            ButtonMenu(text: 'AJUDA', route: '/works', type: 'small'),
+            ButtonMenu(text: 'SAIR', route: '/works', type: 'small'),
           ],
         ),
       ),
