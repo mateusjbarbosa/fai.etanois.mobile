@@ -38,7 +38,7 @@ abstract class _ChatControllerBase with Store {
   bool haveActions = false;
 
   @observable
-  String hintMessage = "";
+  String hintMessage = "Escreva uma mensagem...";
 
   @observable
   bool getNextMessage = true;
@@ -72,7 +72,7 @@ abstract class _ChatControllerBase with Store {
       if (currentMessage.text.contains('nomeUsuario')) {
         currentMessage.text = currentMessage.text.replaceFirst(
           'nomeUsuario',
-          loginChatController.userController.user.name,
+          loginChatController.userController.getFirstName(),
         );
       }
 
