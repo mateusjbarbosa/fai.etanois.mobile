@@ -19,8 +19,7 @@ class _MenuPageState extends ModularState<MenuPage, MenuController> {
       backgroundColor: Color(0xFFF7F7F7),
       appBar: AppBar(
         title: Text(
-          // 'OLÁ, ${controller.userController.getFirstName()}'.toUpperCase(),
-          'OLÁ, USUÁRIO!',
+          'OLÁ, ${controller.userController.getFirstName()}'.toUpperCase(),
           style: TextStyle(
             color: Theme.of(context).accentColor,
             fontSize: 24.0,
