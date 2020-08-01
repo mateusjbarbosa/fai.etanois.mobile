@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import 'package:etanois/app/modules/editar_perfil/widgets/button_menu.widget.dart';
-import 'package:etanois/app/modules/editar_perfil/widgets/content_item.widget.dart';
-import 'package:etanois/app/modules/editar_perfil/widgets/title_item.widget.dart';
+import 'package:etanois/app/modules/update_user/widgets/button_menu.widget.dart';
+import 'package:etanois/app/modules/update_user/widgets/content_item.widget.dart';
+import 'package:etanois/app/modules/update_user/widgets/title_item.widget.dart';
 
-import 'editar_perfil.controller.dart';
+import 'update_user.controller.dart';
 
-class EditarPerfilPage extends StatefulWidget {
+class UpdateUserPage extends StatefulWidget {
   @override
-  _EditarPerfilPageState createState() => _EditarPerfilPageState();
+  _UpdateUserPageState createState() => _UpdateUserPageState();
 }
 
-class _EditarPerfilPageState
-    extends ModularState<EditarPerfilPage, EditarPerfilController> {
+class _UpdateUserPageState
+    extends ModularState<UpdateUserPage, UpdateUserController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -6,12 +6,12 @@ import 'package:etanois/app/modules/user/model/user.model.dart';
 
 import '../user/user.controller.dart';
 
-part 'editar_perfil.controller.g.dart';
+part 'update_user.controller.g.dart';
 
-class EditarPerfilController = _EditarPerfilControllerBase
-    with _$EditarPerfilController;
+class UpdateUserController = _UpdateUserControllerBase
+    with _$UpdateUserController;
 
-abstract class _EditarPerfilControllerBase with Store {
+abstract class _UpdateUserControllerBase with Store {
   UserController userController = GetIt.I.get<UserController>();
 
   User editUser = User();
