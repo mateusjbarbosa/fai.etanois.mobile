@@ -69,18 +69,16 @@ abstract class _ChatControllerBase with Store {
         choose: choose,
       );
 
-      hintMessage = currentMessage.hintMessage;
-
-      currentMessage.time = time.generateTime();
-
       if (currentMessage.text.contains('nomeUsuario')) {
-        print(loginChatController.userController.user.name);
         currentMessage.text = currentMessage.text.replaceFirst(
           'nomeUsuario',
           loginChatController.userController.user.name,
         );
-        print(currentMessage.text);
       }
+
+      hintMessage = currentMessage.hintMessage;
+
+      currentMessage.time = time.generateTime();
 
       chatMessages.insert(0, currentMessage);
 
