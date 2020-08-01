@@ -5,6 +5,7 @@ import 'app.controller.dart';
 
 import 'package:etanois/app/modules/home/home.module.dart';
 import 'package:etanois/app/modules/chat/chat_module.dart';
+import 'package:etanois/app/modules/menu/menu.module.dart';
 
 import 'package:etanois/app/app.widget.dart';
 
@@ -18,6 +19,7 @@ class AppModule extends MainModule {
   List<Router> get routers => [
         Router("/", module: ChatModule()),
         Router("/home", module: HomeModule()),
+        Router('/menu', module: MenuModule()),
       ];
 
   @override
