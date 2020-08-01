@@ -45,7 +45,7 @@ vars:
   runner: flutter pub run build_runner
 
   # ADB
-  ip: '192.168.20.101'
+  ip: '192.168.20.106'
   port: '5555'
 
 scripts:
@@ -55,3 +55,4 @@ scripts:
 
   # ADB
   adb_connect: adb connect $ip:$port
+  adb_disconnect: adb disconnect $ip:$port
