@@ -26,6 +26,8 @@ abstract class _ChatControllerBase with Store {
 
   ChatType currentChat = ChatType.WELCOME;
 
+  String choose = "";
+
   @observable
   bool userCreated = false;
 
@@ -62,10 +64,23 @@ abstract class _ChatControllerBase with Store {
     while (getNextMessage) {
       await Future.delayed(Duration(seconds: 2));
 
-      currentMessage = messages.getNextMessage(currentChat);
+      currentMessage = messages.getNextMessage(
+        currentChat,
+        choose: choose,
+      );
+
       hintMessage = currentMessage.hintMessage;
 
       currentMessage.time = time.generateTime();
+
+      if (currentMessage.text.contains('nomeUsuario')) {
+        print(loginChatController.userController.user.name);
+        currentMessage.text = currentMessage.text.replaceFirst(
+          'nomeUsuario',
+          loginChatController.userController.user.name,
+        );
+        print(currentMessage.text);
+      }
 
       chatMessages.insert(0, currentMessage);
 
@@ -86,10 +101,14 @@ abstract class _ChatControllerBase with Store {
             }
             break;
           case ChatType.LOGIN:
-            response = await loginChatController
-                .verifyMessage(currentMessage.chatAction);
+            response = await loginChatController.verifyMessage(currentMessage);
 
             getNextMessage = !currentMessage.waitAction;
+
+            if (response['verifiedMessage'] != null) {
+              currentMessage = response['verifiedMessage'];
+              chatMessages.insert(0, currentMessage);
+            }
 
             if (response.containsKey('loginAccepted')) {
               loginAccepted = response['loginAccepted'];
@@ -180,7 +199,6 @@ abstract class _ChatControllerBase with Store {
 
         currentChat = ChatType.CREATE_ACCOUNT;
         currentMessage.waitAction = false;
-
         break;
 
       case 'E-MAIL':
@@ -196,21 +214,18 @@ abstract class _ChatControllerBase with Store {
         message.time = time.generateTime();
 
         chatMessages.insert(0, message);
+        break;
+      case 'ATIVEI':
+        message.text = option;
+        message.time = time.generateTime();
 
-        currentMessage = messages.getNextMessage(currentChat);
-
-        currentMessage.time = time.generateTime();
-
-        currentMessage.chatAction = ChatActions.INPUT_USERNAME;
-
-        chatMessages.insert(0, currentMessage);
-
-        manageChat();
+        chatMessages.insert(0, message);
         break;
     }
 
     getNextMessage = true;
     haveActions = false;
+    choose = option;
 
     manageChat();
   }

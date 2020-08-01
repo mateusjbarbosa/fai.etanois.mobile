@@ -26,6 +26,9 @@ class EdnaldoMessages {
           case 'APELIDO':
             message = _loginUsernameMessages[_loginUsernameChatIndex++];
             break;
+          case 'ATIVEI':
+            message = _loginMessages[_loginChatIndex];
+            break;
           default:
             message = _loginMessages[_loginChatIndex++];
             break;
@@ -165,11 +168,18 @@ class EdnaldoMessages {
     Message(
       sender: MessageSender.EDNALDO,
       text:
-          'Precisamos do e-mail cadastro no Etanóis ou seu apelido. Qual você prefere?',
+          'Precisamos do e-mail cadastrado no Etanóis ou seu apelido. Qual você prefere?',
       waitAction: true,
       chatAction: ChatActions.SELECT,
       actions: ['E-MAIL', 'APELIDO'],
       hintMessage: 'Selecione uma das opções acima...',
+    ),
+    Message(
+      sender: MessageSender.EDNALDO,
+      text: 'Vamos tentar uma nova conexão com seus dados, só um momento!',
+      waitAction: true,
+      chatAction: ChatActions.LOGIN,
+      hintMessage: 'Escreva uma mensagem...',
     ),
   ];
 

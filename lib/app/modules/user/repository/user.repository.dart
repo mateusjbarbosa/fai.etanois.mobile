@@ -84,10 +84,13 @@ class UserRepository implements IUser {
 
   @override
   Future<Either<dynamic, Map<String, dynamic>>> generateUserToken(
-      String email, String password) async {
+    String password, {
+    String email,
+    String username,
+  }) async {
     try {
-      Response _response = await _dio.client
-          .post('$_authRequests', data: {'email': email, 'password': password});
+      Response _response = await _dio.client.post('$_authRequests',
+          data: {'email': email, 'username': username, 'password': password});
 
       return Right(_response.data['payload']);
     } on DioError catch (e) {

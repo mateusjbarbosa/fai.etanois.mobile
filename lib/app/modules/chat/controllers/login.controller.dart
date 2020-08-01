@@ -15,20 +15,44 @@ class LoginController {
 
   Time time = Time();
 
-  Future<Map<String, dynamic>> verifyMessage(ChatActions chatAction) async {
+  Future<Map<String, dynamic>> verifyMessage(Message message) async {
     Map<String, dynamic> response = Map<String, dynamic>();
 
-    switch (chatAction) {
+    Message verifiedMessage = Message(
+      text: '',
+      time: time.generateTime(),
+      sender: MessageSender.EDNALDO,
+      waitAction: true,
+    );
+
+    switch (message.chatAction) {
       case ChatActions.GO_HOME:
         response['loginAccepted'] = true;
         break;
 
       case ChatActions.LOGIN:
-        Error errors =
-            await userController.generateUserToken(user.email, user.password);
+        Error errors = await userController.generateUserToken(
+          user.password,
+          email: user.email,
+          username: user.username,
+        );
 
         if (errors.code == null) {
-          Error errors = await userController.readUser();
+          errors = await userController.readUser();
+
+          if (errors.code == null) {
+            message.waitAction = false;
+          }
+        } else {
+          switch (errors.code) {
+            case 'E-000':
+              verifiedMessage.text =
+                  'Opa, verificamos que você ainda não ativou sua conta! Por favor, acesse seu e-mail e clique no botão CONFIRMAR CADASTRO!';
+              verifiedMessage.chatAction = ChatActions.LOGIN;
+              verifiedMessage.actions = ['ATIVEI'];
+              response['verifiedMessage'] = verifiedMessage;
+              break;
+          }
         }
         break;
       case ChatActions.SELECT:
@@ -83,6 +107,9 @@ class LoginController {
             response['verifiedMessage'] = verifiedMessage;
           }
         } else {
+          userMessage.text = message;
+          response['userMessage'] = userMessage;
+
           verifiedMessage.text =
               'O username deve possuir entre 3 e 30 letras! Por favor, digite novamente.';
           verifiedMessage.chatAction = ChatActions.INPUT_USERNAME;
@@ -118,6 +145,9 @@ class LoginController {
             response['verifiedMessage'] = verifiedMessage;
           }
         } else {
+          userMessage.text = message;
+          response['userMessage'] = userMessage;
+
           verifiedMessage.text =
               'E-mail inválido! Por favor, digite novamente.';
           verifiedMessage.chatAction = ChatActions.INPUT_EMAIL;
@@ -132,6 +162,9 @@ class LoginController {
 
           response['userMessage'] = userMessage;
         } else {
+          userMessage.text = message;
+          response['userMessage'] = userMessage;
+
           verifiedMessage.text =
               'A senha deve possuir entre 6 e 20 caracteres! Por favor, digite novamente.';
           verifiedMessage.chatAction = ChatActions.INPUT_PASSWORD;

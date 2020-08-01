@@ -8,9 +8,10 @@ abstract class IUser {
   Future<Either<dynamic, User>> deleteUser(int id, String token);
 
   Future<Either<dynamic, Map<String, dynamic>>> generateUserToken(
+    String password, {
     String email,
-    String password,
-  );
+    String username,
+  });
 
   Future<bool> findUserByEmail(String email);
   Future<bool> findUserByUsername(String username);
