@@ -30,6 +30,7 @@ flutter:
   uses-material-design: true
 
   assets:
+    - assets/icons/default_user_photo.png
     - assets/icons/menu.png
     - assets/icons/moon.png
     - assets/icons/radar.png

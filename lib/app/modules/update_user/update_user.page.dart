@@ -40,9 +40,17 @@ class _UpdateUserPageState
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            TitleItem(text: 'NOME COMPLETO'),
+            TitleItem(text: 'FOTO E NOME COMPLETO'),
             Row(
               children: <Widget>[
+                CircleAvatar(
+                  backgroundImage: AssetImage(
+                    'assets/icons/default_user_photo.png',
+                  ),
+                ),
+                SizedBox(
+                  width: 8.0,
+                ),
                 Expanded(
                     child: ContentItem(
                   text: '${controller.userController.user.name}',
