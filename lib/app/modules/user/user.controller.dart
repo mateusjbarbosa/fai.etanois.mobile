@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:dartz/dartz.dart';
 
 import 'package:etanois/app/modules/user/repository/user.repository.dart';
@@ -5,6 +8,8 @@ import 'package:etanois/app/modules/user/repository/user.repository.dart';
 import 'package:etanois/core/utils/error.dart';
 
 import 'package:etanois/app/modules/user/model/user.model.dart';
+
+import 'package:flutter/services.dart';
 
 class UserController {
   final UserRepository _repository;
@@ -19,6 +24,10 @@ class UserController {
 
   String getFirstName() {
     return _user.name.split(' ')[0];
+  }
+
+  Uint8List getImage() {
+    return base64.decode(_user.image);
   }
 
   Future<Error> createUser(User u) async {
@@ -37,6 +46,12 @@ class UserController {
         await _repository.readUser(_user.id, _user.token);
 
     response.fold((err) => errors = Error.fromJson(err), (u) => _user = u);
+
+    // TODO: Remove
+    ByteData bytes =
+        await rootBundle.load('assets/icons/default_user_photo.png');
+    ByteBuffer buffer = bytes.buffer;
+    _user.image = base64.encode(Uint8List.view(buffer));
 
     return errors;
   }

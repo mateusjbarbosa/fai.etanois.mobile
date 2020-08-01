@@ -14,8 +14,7 @@ class User {
 
   int etacoins;
 
-  String role;
-  String activate;
+  String image;
 
   String token;
 
@@ -31,8 +30,7 @@ class User {
     this.searchDistanceWithoutRoute,
     this.userPreferenceFuels,
     this.etacoins,
-    this.role,
-    this.activate,
+    this.image,
     this.token,
   });
 
@@ -48,6 +46,7 @@ class User {
     searchDistanceWithoutRoute = json['search_distance_without_route'];
     userPreferenceFuels = json['user_preference_fuels'].cast<String>();
     etacoins = json['etacoins'];
+    image = json['image'];
   }
 
   Map<String, dynamic> toJson() {
