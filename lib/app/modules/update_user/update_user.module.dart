@@ -1,3 +1,4 @@
+import 'package:etanois/app/modules/update_user/pages/delete.page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import 'package:etanois/app/modules/update_user/update_user.page.dart';
@@ -14,6 +15,7 @@ class UpdateUserModule extends ChildModule {
   List<Router> get routers => [
         Router('/', child: (_, args) => UpdateUserPage()),
         Router('/update', child: (_, args) => UpdatePage()),
+        Router('/delete', child: (_, args) => DeletePage()),
       ];
 
   static Inject get to => Inject<UpdateUserModule>.of();

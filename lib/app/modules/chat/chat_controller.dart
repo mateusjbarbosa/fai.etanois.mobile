@@ -227,6 +227,10 @@ abstract class _ChatControllerBase with Store {
 
     manageChat();
   }
+
+  void resetMessagesCount() {
+    messages.reset();
+  }
 }
 
 enum ChatType {

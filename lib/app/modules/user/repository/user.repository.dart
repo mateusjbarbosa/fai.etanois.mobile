@@ -90,7 +90,7 @@ class UserRepository implements IUser {
         ),
       );
 
-      return Right(_response.data['payload']);
+      return Right(User.fromJson(_response.data['payload']));
     } on DioError catch (e) {
       return Left(e.response.data);
     }

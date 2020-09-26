@@ -16,6 +16,7 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends ModularState<ChatPage, ChatController> {
   @override
   void initState() {
+    controller.resetMessagesCount();
     controller.manageChat();
 
     super.initState();

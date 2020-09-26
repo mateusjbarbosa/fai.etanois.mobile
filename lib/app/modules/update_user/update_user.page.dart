@@ -132,7 +132,7 @@ class _UpdateUserPageState
             ),
             ButtonMenu(
               text: 'INATIVAR CONTA',
-              route: '/works',
+              route: '/menu/update-user/delete',
               type: 'small',
               colorButton: Color.fromRGBO(255, 0, 0, .7),
               colorText: Color(0xFFF7F7F7),

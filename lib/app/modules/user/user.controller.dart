@@ -87,6 +87,12 @@ class UserController {
 
     response.fold((err) => errors = Error.fromJson(err), (u) => _user = u);
 
+    // TODO: Remove
+    ByteData bytes =
+        await rootBundle.load('assets/icons/default_user_photo.png');
+    ByteBuffer buffer = bytes.buffer;
+    _user.image = base64.encode(Uint8List.view(buffer));
+
     return errors;
   }
 

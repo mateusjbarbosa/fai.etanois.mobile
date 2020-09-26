@@ -1,41 +1,43 @@
-import 'package:etanois/app/modules/user/model/user.model.dart';
 import 'package:etanois/app/modules/user/user.controller.dart';
 import 'package:etanois/core/utils/error.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
-class UpdatePage extends StatefulWidget {
+class DeletePage extends StatefulWidget {
   @override
-  _UpdatePageState createState() => _UpdatePageState();
+  _DeletePageState createState() => _DeletePageState();
 }
 
-class _UpdatePageState extends State<UpdatePage> {
+class _DeletePageState extends State<DeletePage> {
   final UserController userController = GetIt.I.get<UserController>();
 
-  bool _updating = false;
-  bool _sucessfulUpdate = false;
+  bool _deleting = false;
+  bool _sucessfulDelete = false;
 
-  Widget _buildButton(String text, BuildContext context, bool update,
-      {User user}) {
+  Widget _buildButton(
+    String text,
+    BuildContext context,
+    bool delete,
+  ) {
     return GestureDetector(
-      onTap: update
+      onTap: delete
           ? () async {
               setState(() {
-                _updating = true;
+                _deleting = true;
               });
 
-              Error errors = await userController.updateUser(user);
+              Error errors = await userController.deleteUser();
 
               if (errors.code == null) {
                 setState(() {
-                  _updating = false;
-                  _sucessfulUpdate = true;
+                  _deleting = false;
+                  _sucessfulDelete = true;
                 });
 
-                await Future.delayed(Duration(seconds: 2), () {
+                await Future.delayed(Duration(seconds: 5), () {
                   Navigator.pushNamedAndRemoveUntil(
                     context,
-                    '/home',
+                    '/',
                     (route) => false,
                   );
                 });
@@ -46,10 +48,10 @@ class _UpdatePageState extends State<UpdatePage> {
             },
       child: Container(
         width: MediaQuery.of(context).size.width,
-        height: update ? 45.0 : 65.0,
+        height: delete ? 45.0 : 65.0,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: update ? Theme.of(context).primaryColor : Color(0xFFF7F7F7),
+          color: delete ? Color.fromRGBO(255, 0, 0, .7) : Color(0xFFF7F7F7),
           borderRadius: BorderRadius.all(
             Radius.circular(10.0),
           ),
@@ -65,7 +67,7 @@ class _UpdatePageState extends State<UpdatePage> {
         child: Text(
           text,
           style: TextStyle(
-            color: Theme.of(context).accentColor,
+            color: delete ? Color(0xFFF7F7F7) : Theme.of(context).accentColor,
             fontSize: 18.0,
             fontWeight: FontWeight.bold,
             letterSpacing: 1.5,
@@ -77,12 +79,10 @@ class _UpdatePageState extends State<UpdatePage> {
 
   @override
   Widget build(BuildContext context) {
-    final User _user = ModalRoute.of(context).settings.arguments;
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'CONFIRMAR ALTERAÇÕES',
+          'INATIVAR USUÁRIO',
           style: TextStyle(
             color: Theme.of(context).accentColor,
             fontSize: 18.0,
@@ -94,7 +94,7 @@ class _UpdatePageState extends State<UpdatePage> {
         centerTitle: true,
         backgroundColor: Colors.transparent,
       ),
-      body: _updating
+      body: _deleting
           ? Center(
               child: Text(
                 'Carregando...',
@@ -104,15 +104,18 @@ class _UpdatePageState extends State<UpdatePage> {
                 ),
               ),
             )
-          : _sucessfulUpdate
+          : _sucessfulDelete
               ? Center(
-                  child: Text(
-                    'Alterações realizadas com sucesso!',
-                    style: TextStyle(
-                      fontSize: 24.0,
-                      fontWeight: FontWeight.bold,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 25.0),
+                    child: Text(
+                      'Usuário inativado com sucesso! É uma pena ver você deixar o Etanóis, mas esperamos que você retorne! Obrigado por utilizar o Etanóis!',
+                      style: TextStyle(
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.center,
                   ),
                 )
               : Center(
@@ -122,7 +125,7 @@ class _UpdatePageState extends State<UpdatePage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          'Você tem certeza que deseja realizar as alterações?',
+                          'Você tem certeza que deseja inativar o seu usuário?',
                           style: TextStyle(
                             fontSize: 24.0,
                             fontWeight: FontWeight.bold,
@@ -136,12 +139,7 @@ class _UpdatePageState extends State<UpdatePage> {
                         SizedBox(
                           height: 16.0,
                         ),
-                        _buildButton(
-                          'CONFIRMAR ALTERAÇÕES',
-                          context,
-                          true,
-                          user: _user,
-                        ),
+                        _buildButton('INATIVAR MINHA CONTA', context, true),
                       ],
                     ),
                   ),

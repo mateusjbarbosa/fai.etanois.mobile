@@ -8,6 +8,14 @@ class EdnaldoMessages {
   static int _loginEmailChatIndex = 0;
   static int _loginUsernameChatIndex = 0;
 
+  void reset() {
+    _welcomeIndex = 0;
+    _createAccountChatIndex = 0;
+    _loginChatIndex = 0;
+    _loginEmailChatIndex = 0;
+    _loginUsernameChatIndex = 0;
+  }
+
   Message getNextMessage(ChatType chat, {String choose}) {
     Message message = Message();
 
