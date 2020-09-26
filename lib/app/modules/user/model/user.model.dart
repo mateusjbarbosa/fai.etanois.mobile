@@ -34,12 +34,12 @@ class User {
     this.token,
   });
 
-  User.fromJson(Map<String, dynamic> json) {
+  User.fromJson(Map<String, dynamic> json, {String newPassword}) {
     id = json['id'];
     name = json['name'];
     username = json['username'];
     email = json['email'];
-    password = json['password'];
+    password = json['password'] ?? newPassword;
     cep = json['cep'];
     paymentMode = json['payment_mode'];
     searchDistanceWithRoute = json['search_distance_with_route'];
@@ -47,6 +47,7 @@ class User {
     userPreferenceFuels = json['user_preference_fuels'].cast<String>();
     etacoins = json['etacoins'];
     image = json['image'];
+    token = json['token'];
   }
 
   Map<String, dynamic> toJson() {
@@ -69,6 +70,6 @@ class User {
 
   @override
   String toString() {
-    return '$id | $name | $username | $email | $password | $cep | $paymentMode | $searchDistanceWithRoute | $searchDistanceWithoutRoute | $userPreferenceFuels | $etacoins';
+    return '$id | $name | $username | $email | $password | $cep | $paymentMode | $searchDistanceWithRoute | $searchDistanceWithoutRoute | $userPreferenceFuels | $etacoins | $token';
   }
 }

@@ -46,19 +46,33 @@ class UserRepository implements IUser {
   }
 
   @override
-  Future<Either<dynamic, User>> updateUser(User user) async {
+  Future<Either<dynamic, User>> updateUser(User oldUser, User newUser) async {
+    Map<String, dynamic> userJson = oldUser.toJson();
+
+    userJson['name'] = newUser.name ?? oldUser.name;
+    userJson['old_password'] = oldUser.password;
+    userJson['new_password'] = newUser.password ?? oldUser.password;
+
+    userJson.remove('id');
+    userJson.remove('password');
+
     try {
-      Response _response = await _dio.client.put(
-        '$_userRequests/$id',
-        data: user.toJson(),
+      Response _response = await _dio.client.patch(
+        '$_userRequests/${oldUser.id}',
+        data: userJson,
         options: Options(
           headers: {
-            'Authorization': 'Bearer ${user.token}',
+            'Authorization': 'Bearer ${oldUser.token}',
           },
         ),
       );
 
-      return Right(User.fromJson(_response.data['payload']['user']));
+      return Right(
+        User.fromJson(
+          _response.data['payload']['user'],
+          newPassword: userJson['new_password'],
+        ),
+      );
     } on DioError catch (e) {
       return Left(e.response.data);
     }

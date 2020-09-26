@@ -2,14 +2,14 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 
-class DialogWidget extends StatelessWidget {
+class UpdateNamePhotoDialogWidget extends StatelessWidget {
   final String title, description;
   final TextEditingController name;
   final Uint8List image;
   final Function(String) callbackName;
   final Function(String) callbackImage;
 
-  DialogWidget({
+  UpdateNamePhotoDialogWidget({
     this.title,
     this.description,
     this.image,

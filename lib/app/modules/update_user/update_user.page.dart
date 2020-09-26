@@ -5,7 +5,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:etanois/app/modules/update_user/widgets/button_menu.widget.dart';
 import 'package:etanois/app/modules/update_user/widgets/content_item.widget.dart';
 import 'package:etanois/app/modules/update_user/widgets/title_item.widget.dart';
-import 'package:etanois/app/modules/update_user/widgets/dialog.widget.dart';
+import 'package:etanois/app/modules/update_user/widgets/update_name_photo_dialog.widget.dart';
+import 'package:etanois/app/modules/update_user/widgets/alter_pass_button.widget.dart';
 
 import 'update_user.controller.dart';
 
@@ -72,7 +73,7 @@ class _UpdateUserPageState
                   onPressed: () {
                     showDialog(
                       context: context,
-                      builder: (context) => DialogWidget(
+                      builder: (context) => UpdateNamePhotoDialogWidget(
                         title: "Alterar foto e nome",
                         description:
                             "Selecione uma nova foto bem bacana para seu perfil e/ou altere seu nome, caso queire!",
@@ -84,6 +85,7 @@ class _UpdateUserPageState
                           if (name != controller.userName) {
                             controller.editUser.name = name;
                             controller.userName = name;
+                            controller.saveChanges = true;
                           }
                         },
                         callbackImage: (String image) {
@@ -109,7 +111,8 @@ class _UpdateUserPageState
               builder: (context) {
                 return ButtonMenu(
                   text: 'SALVAR ALTERAÇÕES',
-                  route: '/works',
+                  route: '/menu/update-user/update',
+                  update: controller.editUser,
                   type: 'large',
                   colorButton: controller.saveChanges
                       ? Theme.of(context).accentColor
@@ -120,11 +123,12 @@ class _UpdateUserPageState
               },
             ),
             TitleItem(text: 'CUIDADO'),
-            ButtonMenu(
-              text: 'ALTERAR SENHA',
-              route: '/works',
-              type: 'small',
-              colorButton: Theme.of(context).primaryColor,
+            AlterPassButton(
+              currentPass: controller.userController.user.password,
+              callbackNewPass: (String newPass) {
+                controller.editUser.password = newPass;
+                controller.saveChanges = true;
+              },
             ),
             ButtonMenu(
               text: 'INATIVAR CONTA',

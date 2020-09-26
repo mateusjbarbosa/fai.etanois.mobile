@@ -1,8 +1,10 @@
+import 'package:etanois/app/modules/user/model/user.model.dart';
 import 'package:flutter/material.dart';
 
 class ButtonMenu extends StatelessWidget {
   final String text;
   final String route;
+  final User update;
   final String type;
   final Color colorButton;
   final Color colorText;
@@ -12,6 +14,7 @@ class ButtonMenu extends StatelessWidget {
     Key key,
     this.text,
     this.route,
+    this.update,
     this.type,
     this.colorButton,
     this.colorText,
@@ -23,7 +26,7 @@ class ButtonMenu extends StatelessWidget {
     return GestureDetector(
       onTap: active
           ? () {
-              Navigator.pushNamed(context, route);
+              Navigator.pushNamed(context, route, arguments: update);
             }
           : () {},
       child: Container(
@@ -47,7 +50,8 @@ class ButtonMenu extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-            color: (colorText != null) ? colorText : Theme.of(context).accentColor,
+            color:
+                (colorText != null) ? colorText : Theme.of(context).accentColor,
             fontSize: 18.0,
             fontWeight: FontWeight.bold,
             letterSpacing: 1.5,

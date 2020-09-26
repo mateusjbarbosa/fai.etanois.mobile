@@ -45,7 +45,14 @@ class UserController {
     Either<dynamic, User> response =
         await _repository.readUser(_user.id, _user.token);
 
-    response.fold((err) => errors = Error.fromJson(err), (u) => _user = u);
+    String password = _user.password;
+    String token = _user.token;
+
+    response.fold((err) => errors = Error.fromJson(err), (u) {
+      _user = u;
+      _user.password = password;
+      _user.token = token;
+    });
 
     // TODO: Remove
     ByteData bytes =
@@ -56,12 +63,18 @@ class UserController {
     return errors;
   }
 
-  Future<Error> updateUser() async {
+  Future<Error> updateUser(User user) async {
     Error errors = Error();
 
-    Either<dynamic, User> response = await _repository.updateUser(_user);
+    Either<dynamic, User> response = await _repository.updateUser(_user, user);
 
     response.fold((err) => errors = Error.fromJson(err), (u) => _user = u);
+
+    // TODO: Remove
+    ByteData bytes =
+        await rootBundle.load('assets/icons/default_user_photo.png');
+    ByteBuffer buffer = bytes.buffer;
+    _user.image = base64.encode(Uint8List.view(buffer));
 
     return errors;
   }
@@ -95,6 +108,7 @@ class UserController {
     }, (u) {
       _user.id = u['id'];
       _user.token = u['token'];
+      _user.password = password;
     });
 
     return errors;
