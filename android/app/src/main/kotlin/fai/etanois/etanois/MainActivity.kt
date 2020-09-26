@@ -1,4 +1,4 @@
-package fai.etanois.etanois
+package com.etanois.app
 
 import io.flutter.embedding.android.FlutterActivity
 
