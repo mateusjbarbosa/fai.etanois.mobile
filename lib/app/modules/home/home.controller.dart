@@ -33,7 +33,7 @@ abstract class _HomeControllerBase with Store {
     position = await getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     _userLocation = CameraPosition(
       target: LatLng(position.latitude, position.longitude),
-      zoom: 16,
+      zoom: 18,
     );
 
     circles = Set.from([
@@ -57,6 +57,7 @@ abstract class _HomeControllerBase with Store {
             48,
           ),
         ),
+        anchor: Offset(0.5, 0.5),
         zIndex: 2,
       ),
     ]);
