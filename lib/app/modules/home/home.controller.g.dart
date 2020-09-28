@@ -39,18 +39,18 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
-  final _$_userLocationAtom = Atom(name: '_HomeControllerBase._userLocation');
+  final _$userLocationAtom = Atom(name: '_HomeControllerBase.userLocation');
 
   @override
-  CameraPosition get _userLocation {
-    _$_userLocationAtom.reportRead();
-    return super._userLocation;
+  CameraPosition get userLocation {
+    _$userLocationAtom.reportRead();
+    return super.userLocation;
   }
 
   @override
-  set _userLocation(CameraPosition value) {
-    _$_userLocationAtom.reportWrite(value, super._userLocation, () {
-      super._userLocation = value;
+  set userLocation(CameraPosition value) {
+    _$userLocationAtom.reportWrite(value, super.userLocation, () {
+      super.userLocation = value;
     });
   }
 
@@ -100,11 +100,26 @@ mixin _$HomeController on _HomeControllerBase, Store {
     return _$_moveCameraAsyncAction.run(() => super._moveCamera());
   }
 
+  final _$_HomeControllerBaseActionController =
+      ActionController(name: '_HomeControllerBase');
+
+  @override
+  void _listenerUserLocation() {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase._listenerUserLocation');
+    try {
+      return super._listenerUserLocation();
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''
 mapController: ${mapController},
 position: ${position},
+userLocation: ${userLocation},
 circles: ${circles},
 markers: ${markers}
     ''';

@@ -18,7 +18,7 @@ abstract class _HomeControllerBase with Store {
   Position position;
 
   @observable
-  CameraPosition _userLocation;
+  CameraPosition userLocation;
 
   @observable
   Set<Circle> circles;
@@ -31,7 +31,7 @@ abstract class _HomeControllerBase with Store {
     ConvertAsset convertAsset = new ConvertAsset();
 
     position = await getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    _userLocation = CameraPosition(
+    userLocation = CameraPosition(
       target: LatLng(position.latitude, position.longitude),
       zoom: 18,
     );
@@ -63,6 +63,27 @@ abstract class _HomeControllerBase with Store {
     ]);
 
     _moveCamera();
+
+    _listenerUserLocation();
+  }
+
+  @action
+  void _listenerUserLocation() {
+    GeolocatorPlatform geolocator = GeolocatorPlatform.instance;
+
+    geolocator
+        .getPositionStream(
+            desiredAccuracy: LocationAccuracy.high, distanceFilter: 10)
+        .listen(
+      (Position position) {
+        userLocation = CameraPosition(
+          target: LatLng(position.latitude, position.longitude),
+          zoom: 18,
+        );
+
+        _moveCamera();
+      },
+    );
   }
 
   @action
@@ -70,7 +91,7 @@ abstract class _HomeControllerBase with Store {
     GoogleMapController googleMapController = await mapController.future;
 
     googleMapController.animateCamera(
-      CameraUpdate.newCameraPosition(_userLocation),
+      CameraUpdate.newCameraPosition(userLocation),
     );
   }
 }
