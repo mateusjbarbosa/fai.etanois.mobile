@@ -7,7 +7,7 @@
     android:label="etanois"
     android:icon="@mipmap/ic_launcher">
 
-    <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyAZ2R8P559mKV2sez-jvYnPc6X6joVKf6c"/>
+    <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyDpQ1VnIJjohBFApWVGEW3GEktDjI7IyTQ"/>
 
     <activity
         android:name=".MainActivity"

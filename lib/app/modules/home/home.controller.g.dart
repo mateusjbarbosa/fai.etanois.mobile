@@ -92,6 +92,14 @@ mixin _$HomeController on _HomeControllerBase, Store {
     return _$loadUserLocationAsyncAction.run(() => super.loadUserLocation());
   }
 
+  final _$_updateMarkerAsyncAction =
+      AsyncAction('_HomeControllerBase._updateMarker');
+
+  @override
+  Future<void> _updateMarker() {
+    return _$_updateMarkerAsyncAction.run(() => super._updateMarker());
+  }
+
   final _$_moveCameraAsyncAction =
       AsyncAction('_HomeControllerBase._moveCamera');
 

@@ -28,43 +28,54 @@ abstract class _HomeControllerBase with Store {
 
   @action
   Future<void> loadUserLocation() async {
-    ConvertAsset convertAsset = new ConvertAsset();
-
     position = await getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     userLocation = CameraPosition(
       target: LatLng(position.latitude, position.longitude),
       zoom: 18,
     );
 
-    circles = Set.from([
-      Circle(
-        circleId: CircleId("userPreferencesRadius"),
-        fillColor: Color(0xFFFF9800).withOpacity(0.2),
-        strokeWidth: 0,
-        center: LatLng(position.latitude, position.longitude),
-        radius: 200,
-        zIndex: 1,
-      ),
-    ]);
-
-    markers = Set.from([
-      Marker(
-        markerId: MarkerId("userPosition"),
-        position: LatLng(position.latitude, position.longitude),
-        icon: BitmapDescriptor.fromBytes(
-          await convertAsset.getBytesFromAsset(
-            'assets/icons/user_location.png',
-            48,
-          ),
-        ),
-        anchor: Offset(0.5, 0.5),
-        zIndex: 2,
-      ),
-    ]);
-
-    _moveCamera();
-
     _listenerUserLocation();
+  }
+
+  @action
+  Future<void> _updateMarker() async {
+    ConvertAsset convertAsset = new ConvertAsset();
+
+    Marker marker = Marker(
+      markerId: MarkerId("userPosition"),
+      position: userLocation.target,
+      icon: BitmapDescriptor.fromBytes(
+        await convertAsset.getBytesFromAsset(
+          'assets/icons/user_location.png',
+          48,
+        ),
+      ),
+      anchor: Offset(0.5, 0.5),
+      zIndex: 2,
+    );
+
+    Circle circle = Circle(
+      circleId: CircleId("userPreferencesRadius"),
+      fillColor: Color(0xFFFF9800).withOpacity(0.2),
+      strokeWidth: 0,
+      center: userLocation.target,
+      radius: 200,
+      zIndex: 1,
+    );
+
+    if (markers != null) {
+      markers.remove(markers.first);
+      markers = Set.from([marker]);
+    } else {
+      markers = Set.from([marker]);
+    }
+
+    if (circles != null) {
+      circles.remove(circles.first);
+      circles = Set.from([circle]);
+    } else {
+      circles = Set.from([circle]);
+    }
   }
 
   @action
@@ -73,14 +84,16 @@ abstract class _HomeControllerBase with Store {
 
     geolocator
         .getPositionStream(
-            desiredAccuracy: LocationAccuracy.high, distanceFilter: 10)
+            desiredAccuracy: LocationAccuracy.bestForNavigation,
+            distanceFilter: 5)
         .listen(
       (Position position) {
-        userLocation = CameraPosition(
+        this.userLocation = CameraPosition(
           target: LatLng(position.latitude, position.longitude),
-          zoom: 18,
+          zoom: 17,
         );
 
+        _updateMarker();
         _moveCamera();
       },
     );
