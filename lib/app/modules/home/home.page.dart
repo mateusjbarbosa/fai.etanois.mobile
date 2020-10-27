@@ -33,10 +33,10 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                       target: LatLng(-22.260182, -45.702649),
                       zoom: 18,
                     ),
-                markers: controller.markers,
+                markers: controller.userAndFuelStations,
                 zoomControlsEnabled: false,
                 buildingsEnabled: false,
-                circles: controller.circles,
+                circles: controller.userRadius,
                 onMapCreated: (GoogleMapController c) {
                   controller.mapController.complete(c);
                 },

@@ -39,6 +39,7 @@ flutter:
     - assets/icons/route.png
     - assets/icons/send_message.png
     - assets/icons/user_location.png
+    - assets/icons/fuel_station.png
 
     - assets/map.style.txt
 

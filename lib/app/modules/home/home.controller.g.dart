@@ -54,33 +54,49 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
-  final _$circlesAtom = Atom(name: '_HomeControllerBase.circles');
+  final _$userRadiusAtom = Atom(name: '_HomeControllerBase.userRadius');
 
   @override
-  Set<Circle> get circles {
-    _$circlesAtom.reportRead();
-    return super.circles;
+  Set<Circle> get userRadius {
+    _$userRadiusAtom.reportRead();
+    return super.userRadius;
   }
 
   @override
-  set circles(Set<Circle> value) {
-    _$circlesAtom.reportWrite(value, super.circles, () {
-      super.circles = value;
+  set userRadius(Set<Circle> value) {
+    _$userRadiusAtom.reportWrite(value, super.userRadius, () {
+      super.userRadius = value;
     });
   }
 
-  final _$markersAtom = Atom(name: '_HomeControllerBase.markers');
+  final _$fuelStationsAtom = Atom(name: '_HomeControllerBase.fuelStations');
 
   @override
-  Set<Marker> get markers {
-    _$markersAtom.reportRead();
-    return super.markers;
+  Set<Marker> get fuelStations {
+    _$fuelStationsAtom.reportRead();
+    return super.fuelStations;
   }
 
   @override
-  set markers(Set<Marker> value) {
-    _$markersAtom.reportWrite(value, super.markers, () {
-      super.markers = value;
+  set fuelStations(Set<Marker> value) {
+    _$fuelStationsAtom.reportWrite(value, super.fuelStations, () {
+      super.fuelStations = value;
+    });
+  }
+
+  final _$userAndFuelStationsAtom =
+      Atom(name: '_HomeControllerBase.userAndFuelStations');
+
+  @override
+  Set<Marker> get userAndFuelStations {
+    _$userAndFuelStationsAtom.reportRead();
+    return super.userAndFuelStations;
+  }
+
+  @override
+  set userAndFuelStations(Set<Marker> value) {
+    _$userAndFuelStationsAtom.reportWrite(value, super.userAndFuelStations, () {
+      super.userAndFuelStations = value;
     });
   }
 
@@ -128,8 +144,9 @@ mixin _$HomeController on _HomeControllerBase, Store {
 mapController: ${mapController},
 position: ${position},
 userLocation: ${userLocation},
-circles: ${circles},
-markers: ${markers}
+userRadius: ${userRadius},
+fuelStations: ${fuelStations},
+userAndFuelStations: ${userAndFuelStations}
     ''';
   }
 }
