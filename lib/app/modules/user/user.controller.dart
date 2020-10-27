@@ -32,6 +32,10 @@ class UserController {
 
   Future<Error> createUser(User u) async {
     Error errors = Error();
+
+    u.searchDistanceWithRoute = 1000;
+    u.searchDistanceWithoutRoute = 1000;
+
     Either<dynamic, User> response = await _repository.createUser(u);
 
     response.fold((err) => errors = Error.fromJson(err), (u) => _user = u);

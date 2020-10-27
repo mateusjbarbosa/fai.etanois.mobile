@@ -1,6 +1,7 @@
 import 'package:flutter_modular/flutter_modular.dart';
 
 import 'package:etanois/app/modules/update_user/update_user.module.dart';
+import 'package:etanois/app/modules/user_preferences/user_preferences.module.dart';
 
 import 'package:etanois/app/modules/menu/menu.controller.dart';
 import 'package:etanois/app/modules/menu/menu.page.dart';
@@ -15,6 +16,7 @@ class MenuModule extends ChildModule {
   List<Router> get routers => [
         Router('/', child: (_, args) => MenuPage()),
         Router('/update-user', module: UpdateUserModule()),
+        Router('/user-preferences', module: UserPreferencesModule()),
       ];
 
   static Inject get to => Inject<MenuModule>.of();

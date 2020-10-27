@@ -78,7 +78,7 @@ abstract class _HomeControllerBase with Store {
       fillColor: Color(0xFFFF9800).withOpacity(0.2),
       strokeWidth: 0,
       center: userLocation.target,
-      radius: 1000,
+      radius: _userController.user.searchDistanceWithoutRoute.toDouble(),
       zIndex: 1,
     );
 

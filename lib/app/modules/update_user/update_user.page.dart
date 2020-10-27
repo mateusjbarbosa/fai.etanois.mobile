@@ -106,7 +106,10 @@ class _UpdateUserPageState
             ContentItem(
               text: '${controller.userController.user.email}',
             ),
-            ButtonMenu(text: 'PREFERÊNCIAS', route: '/works', type: 'large'),
+            ButtonMenu(
+                text: 'PREFERÊNCIAS',
+                route: '/menu/user-preferences',
+                type: 'large'),
             Observer(
               builder: (context) {
                 return ButtonMenu(
