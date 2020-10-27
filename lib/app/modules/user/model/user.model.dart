@@ -1,3 +1,5 @@
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 class User {
   int id;
 
@@ -15,6 +17,8 @@ class User {
   int etacoins;
 
   String image;
+
+  LatLng userLocation;
 
   String token;
 

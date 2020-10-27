@@ -52,8 +52,8 @@ class _RadarPageState extends ModularState<RadarPage, RadarController> {
                             controller.distanceInKmBetweenEarthCoordinates(
                           _fs.lat,
                           _fs.lng,
-                          -22.414132,
-                          -45.803728,
+                          controller.userController.user.userLocation.latitude,
+                          controller.userController.user.userLocation.longitude,
                         ),
                       ),
                       SizedBox(

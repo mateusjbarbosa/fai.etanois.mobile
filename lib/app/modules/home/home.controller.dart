@@ -128,6 +128,8 @@ abstract class _HomeControllerBase with Store {
           zoom: 16,
         );
 
+        _userController.user.userLocation = userLocation.target;
+
         _updateMarker();
         _moveCamera();
       },
