@@ -40,6 +40,9 @@ flutter:
     - assets/icons/send_message.png
     - assets/icons/user_location.png
     - assets/icons/fuel_station.png
+    - assets/icons/star.png
+    - assets/icons/check.png
+    - assets/icons/clock.png
 
     - assets/map.style.txt
 

@@ -109,11 +109,15 @@ class FuelStation {
 }
 
 class AvailableFuels {
-  int price;
+  double price;
   int fuelStationId;
   String fuel;
 
-  AvailableFuels({this.price, this.fuelStationId, this.fuel});
+  AvailableFuels({
+    this.price,
+    this.fuelStationId,
+    this.fuel,
+  });
 
   AvailableFuels.fromJson(Map<String, dynamic> json) {
     price = json['price'];
@@ -133,8 +137,8 @@ class AvailableFuels {
 class AvailableServices {
   String serviceType;
   int fuelStationId;
-  Null timeToOpen;
-  Null timeToClose;
+  String timeToOpen;
+  String timeToClose;
   bool service24Hours;
 
   AvailableServices({
