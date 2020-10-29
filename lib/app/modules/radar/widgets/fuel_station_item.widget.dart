@@ -50,18 +50,13 @@ class _FuelStationItemState extends State<FuelStationItem> {
             SizedBox(
               width: 8.0,
             ),
-            service.timeToOpen != null
-                ? Text(
-                    '$response (${service.timeToOpen} | ${service.timeToClose})',
-                    style: TextStyle(
-                      color: Theme.of(context).accentColor,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w500,
-                      letterSpacing: 0.7,
-                    ),
-                  )
-                : Text(
-                    '$response (24 horas)',
+            Container(
+              width: MediaQuery.of(context).size.width * 0.7,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    '$response',
                     style: TextStyle(
                       color: Theme.of(context).accentColor,
                       fontSize: 16.0,
@@ -69,6 +64,20 @@ class _FuelStationItemState extends State<FuelStationItem> {
                       letterSpacing: 0.7,
                     ),
                   ),
+                  Text(
+                    service.timeToOpen != null
+                        ? '(${service.timeToOpen} | ${service.timeToClose})'
+                        : ('24 horas'),
+                    style: TextStyle(
+                      color: Theme.of(context).accentColor,
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.w500,
+                      letterSpacing: 0.7,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
         SizedBox(
