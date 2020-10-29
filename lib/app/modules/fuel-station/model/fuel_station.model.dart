@@ -65,7 +65,10 @@ class FuelStation {
     if (json['available_fuels'] != null) {
       availableFuels = new List<AvailableFuels>();
       json['available_fuels'].forEach((v) {
-        availableFuels.add(new AvailableFuels.fromJson(v));
+        v['price'] = !v['price'].toString().contains('.')
+            ? '${v['price']}.0'
+            : v['price'];
+        availableFuels.add(AvailableFuels.fromJson(v));
       });
     }
     if (json['available_services'] != null) {
@@ -120,7 +123,8 @@ class AvailableFuels {
   });
 
   AvailableFuels.fromJson(Map<String, dynamic> json) {
-    price = json['price'];
+    price =
+        (json['price'] is double) ? json['price'] : double.parse(json['price']);
     fuelStationId = json['fuel_station_id'];
     fuel = json['fuel'];
   }
