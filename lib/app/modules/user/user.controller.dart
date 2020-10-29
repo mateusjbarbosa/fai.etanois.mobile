@@ -74,6 +74,13 @@ class UserController {
 
     response.fold((err) => errors = Error.fromJson(err), (u) => _user = u);
 
+    if (errors == null) {
+      errors = await generateUserToken(
+        _user.password,
+        username: _user.username,
+      );
+    }
+
     // TODO: Remove
     ByteData bytes =
         await rootBundle.load('assets/icons/default_user_photo.png');
