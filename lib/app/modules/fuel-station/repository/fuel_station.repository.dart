@@ -32,8 +32,10 @@ class FuelStationRepository implements IFuelStation {
       );
 
       _response.data['payload']['fuel_stations'].forEach(
-        (item) => {
-          fuelStations.add(FuelStation.fromJson(item)),
+        (item) {
+          FuelStation fs = FuelStation.fromJson(item);
+
+          if (fs.availableFuels.isNotEmpty) fuelStations.add(fs);
         },
       );
 
