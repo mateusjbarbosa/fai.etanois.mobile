@@ -60,7 +60,7 @@ abstract class _HomeControllerBase with Store {
 
     fuelStationController.readFuelStations(
       userLocation.target,
-      1,
+      (_userController.user.searchDistanceWithoutRoute / 1000),
       1,
       _userController.user.token,
     );
