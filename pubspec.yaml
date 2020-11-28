@@ -44,6 +44,8 @@ flutter:
     - assets/icons/check.png
     - assets/icons/clock.png
 
+    - assets/logotipo.png
+
     - assets/map.style.txt
 
 vars:
