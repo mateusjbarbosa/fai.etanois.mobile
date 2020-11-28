@@ -6,8 +6,8 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'core/custom_dio/custom_dio.dart';
 
 import 'app/modules/user/repository/user.repository.dart';
-import 'package:etanois/app/modules/fuel-station/repository/fuel_station.repository.dart';
-import 'package:etanois/app/modules/fuel-station/fuel_station.controller.dart';
+import 'package:etanois/app/modules/fuel_station/repository/fuel_station.repository.dart';
+import 'package:etanois/app/modules/fuel_station/fuel_station.controller.dart';
 
 import 'app/modules/user/user.controller.dart';
 

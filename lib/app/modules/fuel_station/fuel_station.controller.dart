@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
-import 'package:etanois/app/modules/fuel-station/model/fuel_station.model.dart';
-import 'package:etanois/app/modules/fuel-station/repository/fuel_station.repository.dart';
+import 'package:etanois/app/modules/fuel_station/model/fuel_station.model.dart';
+import 'package:etanois/app/modules/fuel_station/repository/fuel_station.repository.dart';
 import 'package:etanois/core/utils/error.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 

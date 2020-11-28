@@ -8,7 +8,7 @@ import 'package:mobx/mobx.dart';
 
 import 'package:etanois/app/modules/user/user.controller.dart';
 
-import 'package:etanois/app/modules/fuel-station/fuel_station.controller.dart';
+import 'package:etanois/app/modules/fuel_station/fuel_station.controller.dart';
 
 import 'package:etanois/core/utils/convertAsset.dart';
 

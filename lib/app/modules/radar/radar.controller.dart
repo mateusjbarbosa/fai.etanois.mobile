@@ -4,7 +4,7 @@ import 'package:mobx/mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-import 'package:etanois/app/modules/fuel-station/fuel_station.controller.dart';
+import 'package:etanois/app/modules/fuel_station/fuel_station.controller.dart';
 import 'package:etanois/app/modules/user/user.controller.dart';
 
 part 'radar.controller.g.dart';
