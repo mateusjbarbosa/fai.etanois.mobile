@@ -1,3 +1,4 @@
+import 'package:etanois/app/modules/chat/model/message.model.dart';
 import 'package:etanois/app/modules/chat/widgets/chat_end_button.widget.dart';
 import 'package:etanois/app/modules/chat/widgets/message_composer.widget.dart';
 import 'package:flutter/material.dart';
@@ -142,6 +143,7 @@ class _ChatPageState extends ModularState<ChatPage, ChatController> {
                   : MessageComposer(
                       isEnable: !controller.getNextMessage,
                       hintMessage: controller.hintMessage,
+                      keyboardType: controller.currentMessage.chatAction,
                       callback: (message) {
                         controller.verifyUserMessage(message);
                       },

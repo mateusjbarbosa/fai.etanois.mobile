@@ -158,7 +158,7 @@ class LoginController {
         if (message.length >= 6 && message.length <= 20) {
           user.password = message;
 
-          userMessage.text = message;
+          userMessage.text = message.replaceAll(RegExp(r"."), "•");
 
           response['userMessage'] = userMessage;
         } else {
