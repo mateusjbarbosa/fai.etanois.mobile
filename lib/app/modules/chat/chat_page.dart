@@ -161,16 +161,20 @@ class _ChatPageState extends ModularState<ChatPage, ChatController> {
           }),
           Observer(
             builder: (BuildContext context) {
-              return (controller.userCreated || controller.loginAccepted)
-                  ? ChatEndButton()
-                  : MessageComposer(
-                      isEnable: _verifyMessageComposerState(),
-                      hintMessage: controller.hintMessage,
-                      keyboardType: controller.currentMessage.chatAction,
-                      callback: (message) {
-                        controller.verifyUserMessage(message);
-                      },
-                    );
+              if (controller.userCreated) {
+                return ChatEndButton(callback: () {});
+              } else if (controller.loginAccepted) {
+                return ChatEndButton();
+              } else {
+                return MessageComposer(
+                  isEnable: _verifyMessageComposerState(),
+                  hintMessage: controller.hintMessage,
+                  keyboardType: controller.currentMessage.chatAction,
+                  callback: (message) {
+                    controller.verifyUserMessage(message);
+                  },
+                );
+              }
             },
           ),
         ],
