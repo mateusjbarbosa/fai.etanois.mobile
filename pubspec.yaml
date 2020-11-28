@@ -43,6 +43,8 @@ flutter:
     - assets/icons/star.png
     - assets/icons/check.png
     - assets/icons/clock.png
+    - assets/icons/closed_eye.png
+    - assets/icons/opened_eye.png
 
     - assets/logotipo.png
 

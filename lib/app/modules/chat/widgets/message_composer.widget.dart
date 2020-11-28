@@ -23,11 +23,10 @@ class MessageComposer extends StatefulWidget {
 
 class _MessageComposerState extends State<MessageComposer> {
   TextEditingController _messageComposerController = TextEditingController();
+  bool visiblePassword = false;
 
   @override
   Widget build(BuildContext context) {
-    print(widget.keyboardType);
-
     TextInputType _verifyKeyboardType() {
       TextInputType type;
 
@@ -74,7 +73,7 @@ class _MessageComposerState extends State<MessageComposer> {
                 textCapitalization: TextCapitalization.sentences,
                 keyboardType: _verifyKeyboardType(),
                 obscureText: widget.keyboardType == ChatActions.INPUT_PASSWORD
-                    ? true
+                    ? visiblePassword ? false : true
                     : false,
                 enableSuggestions:
                     widget.keyboardType == ChatActions.INPUT_PASSWORD
@@ -88,6 +87,33 @@ class _MessageComposerState extends State<MessageComposer> {
                   hintText: widget.hintMessage,
                 ),
               ),
+            ),
+            widget.keyboardType == ChatActions.INPUT_PASSWORD
+                ? GestureDetector(
+                    child: visiblePassword
+                        ? Image.asset(
+                            'assets/icons/opened_eye.png',
+                            height: 30.0,
+                            color: widget.isEnable
+                                ? Theme.of(context).accentColor
+                                : Color(0xFFABABAB),
+                          )
+                        : Image.asset(
+                            'assets/icons/closed_eye.png',
+                            height: 30.0,
+                            color: widget.isEnable
+                                ? Theme.of(context).accentColor
+                                : Color(0xFFABABAB),
+                          ),
+                    onTap: () {
+                      setState(() {
+                        visiblePassword = !visiblePassword;
+                      });
+                    },
+                  )
+                : Container(),
+            SizedBox(
+              width: 8.0,
             ),
             GestureDetector(
               child: Image.asset(
@@ -103,7 +129,7 @@ class _MessageComposerState extends State<MessageComposer> {
                       _messageComposerController.clear();
                     }
                   : null,
-            ),
+            )
           ],
         ),
       ),
