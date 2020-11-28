@@ -1,4 +1,3 @@
-import 'package:etanois/app/modules/chat/chat_controller.dart';
 import 'package:etanois/app/modules/chat/model/message.model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

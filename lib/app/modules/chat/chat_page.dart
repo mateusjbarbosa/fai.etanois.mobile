@@ -1,4 +1,3 @@
-import 'package:etanois/app/modules/chat/model/message.model.dart';
 import 'package:etanois/app/modules/chat/widgets/chat_end_button.widget.dart';
 import 'package:etanois/app/modules/chat/widgets/message_composer.widget.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,3 @@
-import 'package:etanois/app/modules/update_user/widgets/title_item.widget.dart';
 import 'package:etanois/app/modules/user/model/user.model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
