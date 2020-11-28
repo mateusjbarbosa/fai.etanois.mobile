@@ -24,32 +24,34 @@ class _MessageComposerState extends State<MessageComposer> {
   TextEditingController _messageComposerController = TextEditingController();
   bool visiblePassword = false;
 
+  TextInputType _verifyKeyboardType() {
+    TextInputType type;
+
+    switch (widget.keyboardType) {
+      case ChatActions.INPUT_EMAIL:
+        type = TextInputType.emailAddress;
+        break;
+      case ChatActions.INPUT_PASSWORD:
+        type = TextInputType.visiblePassword;
+        break;
+      case ChatActions.INPUT_NAME:
+      case ChatActions.INPUT_USERNAME:
+      case ChatActions.CREATE_USER:
+      case ChatActions.LOGIN:
+      case ChatActions.GO_HOME:
+      case ChatActions.SELECT:
+      case ChatActions.NONE:
+      default:
+        type = TextInputType.text;
+        break;
+    }
+
+    return type;
+  }
+
   @override
   Widget build(BuildContext context) {
-    TextInputType _verifyKeyboardType() {
-      TextInputType type;
-
-      switch (widget.keyboardType) {
-        case ChatActions.INPUT_EMAIL:
-          type = TextInputType.emailAddress;
-          break;
-        case ChatActions.INPUT_PASSWORD:
-          type = TextInputType.visiblePassword;
-          break;
-        case ChatActions.INPUT_NAME:
-        case ChatActions.INPUT_USERNAME:
-        case ChatActions.CREATE_USER:
-        case ChatActions.LOGIN:
-        case ChatActions.GO_HOME:
-        case ChatActions.SELECT:
-        case ChatActions.NONE:
-        default:
-          type = TextInputType.text;
-          break;
-      }
-
-      return type;
-    }
+    print(widget.isEnable);
 
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),

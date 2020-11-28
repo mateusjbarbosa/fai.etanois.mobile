@@ -1,3 +1,4 @@
+import 'package:etanois/app/modules/chat/model/message.model.dart';
 import 'package:etanois/app/modules/chat/widgets/chat_end_button.widget.dart';
 import 'package:etanois/app/modules/chat/widgets/message_composer.widget.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,29 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends ModularState<ChatPage, ChatController> {
+  bool _verifyMessageComposerState() {
+    bool state;
+
+    switch (controller.currentMessage.chatAction) {
+      case ChatActions.INPUT_NAME:
+      case ChatActions.INPUT_USERNAME:
+      case ChatActions.INPUT_EMAIL:
+      case ChatActions.INPUT_PASSWORD:
+        state = true;
+        break;
+      case ChatActions.CREATE_USER:
+      case ChatActions.LOGIN:
+      case ChatActions.GO_HOME:
+      case ChatActions.SELECT:
+      case ChatActions.NONE:
+      default:
+        state = false;
+        break;
+    }
+
+    return state;
+  }
+
   @override
   void initState() {
     controller.resetMessagesCount();
@@ -140,7 +164,7 @@ class _ChatPageState extends ModularState<ChatPage, ChatController> {
               return (controller.userCreated || controller.loginAccepted)
                   ? ChatEndButton()
                   : MessageComposer(
-                      isEnable: !controller.getNextMessage,
+                      isEnable: _verifyMessageComposerState(),
                       hintMessage: controller.hintMessage,
                       keyboardType: controller.currentMessage.chatAction,
                       callback: (message) {
