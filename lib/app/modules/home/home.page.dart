@@ -56,10 +56,6 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
                     icon: 'assets/icons/radar.png',
                   ),
                   ItemMenu(
-                    route: '/route',
-                    icon: 'assets/icons/route.png',
-                  ),
-                  ItemMenu(
                     route: '/menu',
                     icon: 'assets/icons/menu.png',
                   ),

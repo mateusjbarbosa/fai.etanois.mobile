@@ -58,6 +58,7 @@ class _UpdatePasswordDialogWidget extends State<UpdatePasswordDialogWidget> {
             TextField(
               controller: controllerOldPass,
               textAlign: TextAlign.center,
+              obscureText: true,
               decoration: InputDecoration(
                 hintText: 'Senha atual',
                 errorText:
@@ -73,6 +74,7 @@ class _UpdatePasswordDialogWidget extends State<UpdatePasswordDialogWidget> {
             TextField(
               controller: controllerNewPass,
               textAlign: TextAlign.center,
+              obscureText: true,
               decoration: InputDecoration(
                 hintText: 'Senha nova',
                 errorText: _validateNewPass
