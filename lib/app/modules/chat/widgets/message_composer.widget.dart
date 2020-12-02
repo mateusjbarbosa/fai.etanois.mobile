@@ -51,8 +51,6 @@ class _MessageComposerState extends State<MessageComposer> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.isEnable);
-
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
       height: 80.0,
