@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:etanois/app/modules/fuel-station/interface/fuel_station.interface.dart';
-import 'package:etanois/app/modules/fuel-station/model/fuel_station.model.dart';
+import 'package:etanois/app/modules/fuel_station/interface/fuel_station.interface.dart';
+import 'package:etanois/app/modules/fuel_station/model/fuel_station.model.dart';
 import 'package:etanois/core/custom_dio/custom_dio.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 

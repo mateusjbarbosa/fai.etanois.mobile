@@ -1,4 +1,3 @@
-import 'package:etanois/app/modules/update_user/widgets/title_item.widget.dart';
 import 'package:etanois/app/modules/user/model/user.model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,6 +13,46 @@ class _UserPreferencesPageState
     extends ModularState<UserPreferencesPage, UserPreferencesController> {
   TextEditingController _radiusController = TextEditingController();
   User _user = User();
+
+  Widget _preferenceItemText(
+    String title,
+    String subtitle,
+    TextEditingController textController,
+    String errorText,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        SizedBox(
+          height: 8.0,
+        ),
+        Text(
+          subtitle,
+          style: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.w500,
+            color: Colors.grey,
+          ),
+        ),
+        TextField(
+          controller: textController,
+          maxLength: 2,
+          keyboardType: TextInputType.number,
+          decoration: InputDecoration(
+            hintText: errorText,
+          ),
+        )
+      ],
+    );
+  }
 
   @override
   void initState() {
@@ -52,31 +91,11 @@ class _UserPreferencesPageState
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Text(
+            _preferenceItemText(
               'DISTÂNCIA DE BUSCA PELO RADAR',
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(
-              height: 8.0,
-            ),
-            Text(
               'Insira um valor entre 01 km e 10 km',
-              style: TextStyle(
-                fontSize: 16.0,
-                fontWeight: FontWeight.w500,
-                color: Colors.grey,
-              ),
-            ),
-            TextField(
-              controller: _radiusController,
-              maxLength: 3,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                hintText: 'Insira a distância do raio de buscas',
-              ),
+              _radiusController,
+              'Insira a distância do raio de buscas',
             ),
             SizedBox(
               height: 16.0,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:etanois/app/modules/fuel-station/model/fuel_station.model.dart';
+import 'package:etanois/app/modules/fuel_station/model/fuel_station.model.dart';
 
 class FuelStationItem extends StatefulWidget {
   final FuelStation fuelStation;

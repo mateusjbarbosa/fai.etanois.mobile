@@ -1,3 +1,4 @@
+import 'package:etanois/app/modules/splash/splash.page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -20,7 +21,12 @@ class AppModule extends MainModule {
 
   @override
   List<Router> get routers => [
-        Router('/', module: ChatModule()),
+        Router('/', child: (_, args) => Splash()),
+        Router(
+          '/chat',
+          module: ChatModule(),
+          transition: TransitionType.upToDown,
+        ),
         Router('/works', child: (_, args) => WorksPage()),
         Router('/home', module: HomeModule()),
         Router('/radar', module: RadarModule()),

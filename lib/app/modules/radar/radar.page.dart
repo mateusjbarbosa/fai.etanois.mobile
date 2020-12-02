@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_modular/flutter_modular.dart';
 
-import 'package:etanois/app/modules/fuel-station/model/fuel_station.model.dart';
+import 'package:etanois/app/modules/fuel_station/model/fuel_station.model.dart';
 import 'package:etanois/app/modules/radar/widgets/fuel_station_item.widget.dart';
 
 import 'radar.controller.dart';

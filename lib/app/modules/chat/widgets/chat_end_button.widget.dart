@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ChatEndButton extends StatelessWidget {
+  final Function callback;
+
+  const ChatEndButton({Key key, this.callback}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,10 +24,12 @@ class ChatEndButton extends StatelessWidget {
           children: <Widget>[
             GestureDetector(
               onTap: () {
-                Navigator.pushReplacementNamed(context, '/home');
+                callback != null
+                    ? callback()
+                    : Navigator.pushReplacementNamed(context, '/home');
               },
               child: Text(
-                'FINALIZAR CHAT',
+                callback != null ? 'REALIZAR LOGIN' : 'FINALIZAR CHAT',
                 style: TextStyle(
                   fontSize: 24.0,
                   fontWeight: FontWeight.bold,
